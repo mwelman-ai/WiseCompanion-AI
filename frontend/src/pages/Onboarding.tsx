@@ -1,0 +1,1 @@
+const Onboarding = () => <div className='p-8'><h1 className='text-3xl font-bold'>Onboarding Page</h1><p className='text-xl mt-4'>Placeholder for Onboarding functionality.</p></div>; export default Onboarding;
