@@ -426,3 +426,38 @@ header {
   text-align: center;
   margin-bottom: 24px;
 }
+
+/* High Contrast Mode Variables */
+.high-contrast {
+  --bg-app: #ffffff !important;
+  --bg-card: #ffffff !important;
+  --color-primary: #0000ff !important; /* Pure blue */
+  --color-secondary: #008000 !important; /* Pure green */
+  --color-accent: #ff9900 !important;
+  --color-text: #000000 !important; /* Pure black */
+  --color-text-muted: #111111 !important;
+  --color-border: #000000 !important; /* Black borders */
+}
+
+/* High Contrast + Dark Mode */
+.high-contrast.dark-mode {
+  --bg-app: #000000 !important; /* Pure black */
+  --bg-card: #000000 !important;
+  --color-primary: #5555ff !important;
+  --color-secondary: #55ff55 !important;
+  --color-accent: #ffff55 !important;
+  --color-text: #ffffff !important; /* Pure white */
+  --color-text-muted: #eeeeee !important;
+  --color-border: #ffffff !important; /* White borders */
+}
+
+/* Font Size Accessibility Support */
+body.font-extra-large {
+  font-size: 22px !important;
+}
+body.font-large {
+  font-size: 19px !important;
+}
+body.font-normal {
+  font-size: 17px !important;
+}

@@ -18,8 +18,9 @@ router.use('/auth', authRouter);
 // Mount Chat routes: /api/chat, /api/chat/history
 router.use('/chat', chatRouter);
 
-// Mount Scam analysis route: /api/scam-check
+// Mount Scam analysis route: support both /api/scam-check and /api/scam/detect
 router.use('/scam-check', scamRouter);
+router.use('/scam/detect', scamRouter);
 
 // Mount Health logs routes: /api/health/log, /api/health/logs
 router.use('/health', healthRouter);

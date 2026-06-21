@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Pricing from './pages/Pricing';
 import Dashboard from './pages/Dashboard';
+import Onboarding from './pages/Onboarding';
 import Ask from './pages/Ask';
 import Health from './pages/Health';
 import Medications from './pages/Medications';
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/ask" element={<Ask />} />
         <Route path="/health" element={<Health />} />
         <Route path="/medications" element={<Medications />} />

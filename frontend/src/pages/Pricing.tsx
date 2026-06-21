@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Heart, Shield, Check, Star, Sparkles, Volume2, MessageCircle, Apple, Pill, Plane, Users, ChevronRight } from 'lucide-react';
+import { Heart, Check, Star, Sparkles, ChevronRight } from 'lucide-react';
 
 const plans = [
   {
