@@ -17,8 +17,11 @@ app.use('/api', apiRoutes);
 app.get('/health', (req, res) => {
     res.status(200).json({ status: 'ok', message: 'WiseCompanion AI API is running' });
 });
-// Start Server
-app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+// Start Server (only when run directly, not as Vercel serverless function)
+if (process.env.VERCEL !== '1') {
+    app.listen(port, () => {
+        console.log(`[server]: Server is running at http://localhost:${port}`);
+    });
+}
+export default app;
 //# sourceMappingURL=index.js.map
