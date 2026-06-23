@@ -12,6 +12,27 @@ import subscriptionsRouter from './subscriptions.js';
 
 const router = Router();
 
+// Waitlist signup - stores emails locally
+router.post('/waitlist', (req: any, res: any) => {
+  try {
+    const { email, name, interest, source } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email is required' });
+    
+    const dataDir = new URL('../data', import.meta.url).pathname;
+    const signupsPath = new URL('../data/signups.json', import.meta.url).pathname;
+    import('fs').then(fs => {
+      let signups: any[] = [];
+      if (fs.existsSync(signupsPath)) {
+        try { signups = JSON.parse(fs.readFileSync(signupsPath, 'utf-8')); } catch { signups = []; }
+      }
+      signups.push({ email, name: name || '', interest: interest || 'both', source: source || 'signup-page', timestamp: new Date().toISOString() });
+      if (!fs.existsSync(new URL('../data', import.meta.url).pathname)) fs.mkdirSync(new URL('../data', import.meta.url).pathname, { recursive: true });
+      fs.writeFileSync(signupsPath, JSON.stringify(signups, null, 2));
+    });
+    res.json({ success: true });
+  } catch { res.status(500).json({ error: 'Failed' }); }
+});
+
 // Mount Auth routes: /api/auth/signup, /api/auth/login, /api/auth/me
 router.use('/auth', authRouter);
 

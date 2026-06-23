@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { Shield, MessageCircle, Apple, Pill, Plane, Users, Star, Sparkles, ArrowRight } from 'lucide-react';
 
 const features = [
-  { icon: MessageCircle, title: 'Voice-First Companion', desc: 'Chat naturally using your voice. WiseCompanion listens, speaks back, and is always ready to help.', gradient: 'from-violet-500 to-purple-600' },
-  { icon: Shield, title: 'Scam Detector', desc: 'Paste suspicious emails or texts and get instant safety analysis. Green means safe, red means block it.', gradient: 'from-emerald-500 to-green-600' },
+  { icon: MessageCircle, title: 'Voice-First Companion', desc: 'Chat naturally using your voice. WiseCompanion listens, speaks back, and is always ready to help.', gradient: 'from-teal-500 to-cyan-600' },
+  { icon: Shield, title: 'Scam Detector', desc: 'Paste suspicious emails or texts and get instant safety analysis. Green means safe, red means block it.', gradient: 'from-emerald-500 to-teal-600' },
   { icon: Apple, title: 'Health & Wellness', desc: 'Track your steps, water, weight, and discover gentle exercises and healthy recipes.', gradient: 'from-green-500 to-emerald-600' },
-  { icon: Pill, title: 'Medication Reminders', desc: 'Never miss a dose. Set friendly reminders for your pills, vitamins, and supplements.', gradient: 'from-purple-500 to-violet-600' },
+  { icon: Pill, title: 'Medication Reminders', desc: 'Never miss a dose. Set friendly reminders for your pills, vitamins, and supplements.', gradient: 'from-cyan-500 to-blue-600' },
   { icon: Plane, title: 'Travel Assistant', desc: 'Smart packing lists, airport tips, and travel advice tailored for stress-free trips.', gradient: 'from-amber-500 to-orange-600' },
   { icon: Users, title: 'Stay Connected', desc: 'Send messages to family, call loved ones, and strengthen bonds with easy tools.', gradient: 'from-rose-500 to-pink-600' },
 ];
@@ -21,26 +21,26 @@ const Home = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-3xl" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #e11d48 100%)' }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, white 0%, transparent 50%), radial-gradient(circle at 80% 20%, white 0%, transparent 30%)' }} />
+      <section className="relative overflow-hidden rounded-3xl" style={{ background: 'linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #0e7490 100%)' }}>
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, white 0%, transparent 50%), radial-gradient(circle at 70% 20%, white 0%, transparent 30%)' }} />
         <div className="relative px-6 py-20 md:py-32 text-center">
-          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md rounded-full px-6 py-3 mb-8 border border-white/20">
-            <Sparkles size={20} className="text-yellow-300" />
-            <span className="text-lg font-semibold text-white">AI-Powered Companion for Adults 50+</span>
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 mb-8 border border-white/10">
+            <Sparkles size={20} className="text-teal-300" />
+            <span className="text-lg font-semibold text-white/90">AI-Powered Companion for Adults 50+</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-tight mb-6">
             Your Warm, <br />
-            <span className="text-yellow-300">Wise Companion</span>
+            <span className="text-teal-300">Wise Companion</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
             Voice chat, scam protection, health tracking, and family connection —<br />
             all designed with large text and warm colors for easy use.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <button onClick={() => navigate('/onboarding')} className="inline-flex items-center gap-2 bg-white text-violet-700 font-bold text-xl px-10 py-4 rounded-2xl hover:shadow-2xl hover:scale-105 transition-all shadow-lg">
+            <button onClick={() => navigate('/onboarding')} className="inline-flex items-center gap-2 bg-teal-500 text-white font-bold text-xl px-10 py-4 rounded-2xl hover:bg-teal-400 hover:shadow-2xl hover:scale-105 transition-all shadow-lg">
               Get Started Free <ArrowRight size={24} />
             </button>
-            <button onClick={() => navigate('/pricing')} className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white font-bold text-xl px-10 py-4 rounded-2xl border-2 border-white/30 hover:bg-white/20 transition-all">
+            <button onClick={() => navigate('/pricing')} className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white font-bold text-xl px-10 py-4 rounded-2xl border-2 border-white/20 hover:bg-white/20 transition-all">
               See Pricing
             </button>
           </div>
@@ -85,7 +85,7 @@ const Home = () => {
             { step: '3', title: 'Chat & Stay Safe', desc: 'Use voice or text to ask questions, check for scams, track health, and connect.' },
           ].map((item, i) => (
             <div key={i} className="text-center">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 text-white text-2xl font-bold flex items-center justify-center mx-auto mb-5 shadow-lg">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-500 to-cyan-600 text-white text-2xl font-bold flex items-center justify-center mx-auto mb-5 shadow-lg">
                 {item.step}
               </div>
               <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
@@ -114,14 +114,14 @@ const Home = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-16 rounded-3xl text-center text-white mb-10" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #e11d48 100%)' }}>
+      <section className="py-16 rounded-3xl text-center text-white mb-10" style={{ background: 'linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #0e7490 100%)' }}>
         <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
           Start Your Journey Today
         </h2>
-        <p className="text-xl text-white/90 max-w-xl mx-auto mb-10">
+        <p className="text-xl text-white/80 max-w-xl mx-auto mb-10">
           Free to start. No credit card needed. Your warm wise companion is waiting.
         </p>
-        <button onClick={() => navigate('/onboarding')} className="inline-flex items-center gap-2 bg-white text-violet-700 font-bold text-xl px-12 py-5 rounded-2xl hover:shadow-2xl hover:scale-105 transition-all shadow-lg">
+        <button onClick={() => navigate('/onboarding')} className="inline-flex items-center gap-2 bg-teal-500 text-white font-bold text-xl px-12 py-5 rounded-2xl hover:bg-teal-400 hover:shadow-2xl hover:scale-105 transition-all shadow-lg">
           Get Started Free <ArrowRight size={24} />
         </button>
       </section>

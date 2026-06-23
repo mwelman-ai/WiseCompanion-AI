@@ -10,6 +10,7 @@ import Medications from './pages/Medications';
 import Travel from './pages/Travel';
 import Family from './pages/Family';
 import ScamDetector from './pages/ScamDetector';
+import Signup from './pages/Signup';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 
@@ -47,6 +48,7 @@ function App() {
             <Route path="/travel" element={<Travel />} />
             <Route path="/family" element={<Family />} />
             <Route path="/scam-detector" element={<ScamDetector />} />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </main>
         <Footer />
