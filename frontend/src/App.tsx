@@ -13,6 +13,7 @@ import Family from './pages/Family';
 import ScamDetector from './pages/ScamDetector';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Success from './pages/Success';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 
@@ -53,6 +54,7 @@ function App() {
               <Route path="/scam-detector" element={<ScamDetector />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/success" element={<Success />} />
             </Routes>
           </main>
           <Footer />
