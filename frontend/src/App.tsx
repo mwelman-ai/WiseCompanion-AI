@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
+import { AuthProvider } from './contexts/AuthContext';
 import Home from './pages/Home';
 import Pricing from './pages/Pricing';
 import Dashboard from './pages/Dashboard';
@@ -11,6 +12,7 @@ import Travel from './pages/Travel';
 import Family from './pages/Family';
 import ScamDetector from './pages/ScamDetector';
 import Signup from './pages/Signup';
+import Login from './pages/Login';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 
@@ -33,27 +35,30 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className="app-container">
-        <Navbar onToggleDarkMode={toggleDarkMode} />
-        <main style={{ flex: 1 }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/ask" element={<Ask />} />
-            <Route path="/health" element={<Health />} />
-            <Route path="/medications" element={<Medications />} />
-            <Route path="/travel" element={<Travel />} />
-            <Route path="/family" element={<Family />} />
-            <Route path="/scam-detector" element={<ScamDetector />} />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="app-container">
+          <Navbar onToggleDarkMode={toggleDarkMode} />
+          <main style={{ flex: 1 }}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/ask" element={<Ask />} />
+              <Route path="/health" element={<Health />} />
+              <Route path="/medications" element={<Medications />} />
+              <Route path="/travel" element={<Travel />} />
+              <Route path="/family" element={<Family />} />
+              <Route path="/scam-detector" element={<ScamDetector />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

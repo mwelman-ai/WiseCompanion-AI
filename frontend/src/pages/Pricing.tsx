@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Heart, Check, Star, Sparkles, ChevronRight } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import { apiFetch } from '../lib/api';
 
 const plans = [
   {
@@ -16,6 +19,7 @@ const plans = [
     ],
     cta: 'Get Started Free',
     highlighted: false,
+    tier: 'free',
   },
   {
     name: 'Premium',
@@ -35,6 +39,7 @@ const plans = [
     ],
     cta: 'Upgrade to Premium',
     highlighted: true,
+    tier: 'premium',
   },
 ];
 
@@ -50,6 +55,49 @@ const featureCompare = [
 
 const Pricing = () => {
   const navigate = useNavigate();
+  const { isAuthenticated, token } = useAuth();
+  const [loadingTier, setLoadingTier] = useState<string | null>(null);
+  const [error, setError] = useState('');
+
+  const handleSubscribe = async (tier: string) => {
+    if (tier === 'free') {
+      navigate('/signup');
+      return;
+    }
+
+    if (!isAuthenticated) {
+      navigate('/signup?redirect=pricing');
+      return;
+    }
+
+    setError('');
+    setLoadingTier(tier);
+
+    try {
+      const res = await apiFetch('/api/subscriptions/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          priceId: 'price_1TsxFkDKaDY1sBDvslpt6z50',
+          plan: 'premium'
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || data.message || 'Checkout failed');
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL returned');
+      }
+    } catch (err: any) {
+      setError(err.message || 'Failed to start checkout');
+      setLoadingTier(null);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -62,12 +110,15 @@ const Pricing = () => {
           </button>
           <div className="flex items-center gap-6">
             <button onClick={() => navigate('/')} className="text-lg font-medium hover:text-rose-500 transition-colors">Home</button>
-            <button
-              onClick={() => navigate('/dashboard')}
-              className="bg-slate-900 text-white px-6 py-2 rounded-full font-bold text-lg hover:opacity-90 transition-opacity"
-            >
-              Sign In
-            </button>
+            {isAuthenticated ? (
+              <button onClick={() => navigate('/dashboard')} className="bg-slate-900 text-white px-6 py-2 rounded-full font-bold text-lg hover:opacity-90 transition-opacity">
+                Dashboard
+              </button>
+            ) : (
+              <button onClick={() => navigate('/signup')} className="bg-slate-900 text-white px-6 py-2 rounded-full font-bold text-lg hover:opacity-90 transition-opacity">
+                Sign In
+              </button>
+            )}
           </div>
         </div>
       </nav>
@@ -88,6 +139,11 @@ const Pricing = () => {
 
       {/* Pricing Cards */}
       <section className="container mx-auto px-4 pb-20">
+        {error && (
+          <div className="max-w-md mx-auto mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-center text-lg">
+            {error}
+          </div>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {plans.map((plan, i) => (
             <div
@@ -111,14 +167,15 @@ const Pricing = () => {
               <p className="text-lg text-slate-500 mb-8">{plan.description}</p>
 
               <button
-                onClick={() => navigate('/dashboard')}
+                onClick={() => handleSubscribe(plan.tier)}
+                disabled={loadingTier === plan.tier}
                 className={`w-full py-5 rounded-2xl text-xl font-bold transition-all flex items-center justify-center gap-2 ${
                   plan.highlighted
-                    ? 'bg-blue-600 text-white shadow-lg hover:bg-blue-700'
+                    ? 'bg-blue-600 text-white shadow-lg hover:bg-blue-700 disabled:opacity-50'
                     : 'bg-slate-100 text-slate-800 hover:bg-slate-200'
                 }`}
               >
-                {plan.cta} <ChevronRight size={24} />
+                {loadingTier === plan.tier ? 'Processing...' : plan.cta} <ChevronRight size={24} />
               </button>
 
               <ul className="mt-8 space-y-4">
@@ -145,12 +202,7 @@ const Pricing = () => {
               <div className="text-center text-blue-600">Premium</div>
             </div>
             {featureCompare.map((item, i) => (
-              <div
-                key={i}
-                className={`grid grid-cols-3 gap-4 p-5 text-lg ${
-                  i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'
-                } border-b border-slate-100 last:border-0`}
-              >
+              <div key={i} className={`grid grid-cols-3 gap-4 p-5 text-lg ${i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'} border-b border-slate-100 last:border-0`}>
                 <div className="font-medium text-slate-800">{item.name}</div>
                 <div className="text-center text-slate-500">{item.free}</div>
                 <div className="text-center text-emerald-600 font-medium">{item.premium}</div>
@@ -167,10 +219,7 @@ const Pricing = () => {
           <p className="text-xl text-white/90 max-w-2xl mx-auto mb-10">
             No credit card needed. Join thousands of happy seniors who have a companion by their side.
           </p>
-          <button
-            onClick={() => navigate('/dashboard')}
-            className="bg-white text-slate-900 px-12 py-6 rounded-2xl text-2xl font-bold shadow-xl hover:bg-slate-100 transition-all inline-flex items-center gap-3"
-          >
+          <button onClick={() => navigate('/signup')} className="bg-white text-slate-900 px-12 py-6 rounded-2xl text-2xl font-bold shadow-xl hover:bg-slate-100 transition-all inline-flex items-center gap-3">
             Get Started Free <Heart size={28} className="text-rose-500" />
           </button>
         </div>
