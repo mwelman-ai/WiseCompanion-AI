@@ -1,7 +1,9 @@
 import { supabase } from '../config/supabase.js';
 
 // Detect if we are in mock mode (default or missing Supabase keys)
-export const isMockMode = true;
+const supabaseUrl = process.env.SUPABASE_URL || '';
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+export const isMockMode = !(supabaseUrl && supabaseKey && supabaseUrl !== 'your_supabase_url' && supabaseKey !== 'your_supabase_key');
 
 console.log(`[dbService] Mode: ${isMockMode ? 'MOCK DATABASE (In-Memory Fallback)' : 'LIVE DATABASE (Supabase PostgREST)'}`);
 

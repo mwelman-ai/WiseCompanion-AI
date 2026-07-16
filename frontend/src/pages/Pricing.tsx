@@ -81,7 +81,7 @@ const Pricing = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          priceId: 'price_1TsxFkDKaDY1sBDvslpt6z50',
+          priceId: 'price_1TtrzL09k7Xe8OO1tzJe5oq2',
           plan: 'premium'
         }),
       });
