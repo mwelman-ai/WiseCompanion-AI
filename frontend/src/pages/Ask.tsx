@@ -69,7 +69,7 @@ const Ask = () => {
       {
         id: 'msg-welcome',
         role: 'assistant',
-        content: `Hello ${storedName}! I am WiseCompanion, your warm and friendly AI. How are you feeling today? You can type a question below, click one of the suggestions, or tap the microphone to speak to me!`,
+        content: `Hello ${storedName}! I am WiseCompanion, your warm and friendly companion. How are you feeling today? You can type a question below, click one of the suggestions, or tap the microphone to speak to me!`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }
     ]);
@@ -209,22 +209,22 @@ const Ask = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto flex flex-col h-[calc(100vh-80px)] pb-4">
+    <div className="max-w-4xl mx-auto flex flex-col h-[calc(100vh-120px)] pb-4 px-4 text-slate-800">
       {/* Back Button and Header */}
-      <div className="flex items-center justify-between border-b-2 border-slate-100 pb-4 mb-4">
+      <div className="flex items-center justify-between border-b-2 border-slate-100 pb-4 mb-4 gap-4">
         <button
           onClick={() => {
             window.speechSynthesis.cancel();
             navigate('/dashboard');
           }}
-          className="flex items-center gap-2 text-slate-600 hover:text-slate-900 text-lg font-bold min-h-[48px] min-w-[100px] transition-all"
+          className="flex items-center gap-2 text-slate-700 hover:text-slate-900 text-lg font-bold min-h-[48px] px-5 py-2.5 bg-white border-2 border-slate-200 border-b-4 border-b-slate-300 hover:border-slate-300 hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 transition-all rounded-2xl shadow-sm hover:shadow-md"
         >
           <ArrowLeft size={24} /> Back
         </button>
 
         <div className="flex items-center gap-3">
-          <span className="text-3xl">💬</span>
-          <h1 className="text-2xl md:text-3xl font-black text-slate-900">Ask WiseCompanion</h1>
+          <span className="text-3xl hidden sm:inline">💬</span>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-950">Ask WiseCompanion</h1>
         </div>
 
         {/* Mute Button */}
@@ -233,10 +233,10 @@ const Ask = () => {
             if (!isMuted) window.speechSynthesis.cancel();
             setIsMuted(!isMuted);
           }}
-          className={`p-3 rounded-2xl border-2 flex items-center justify-center min-h-[48px] min-w-[48px] transition-all ${
+          className={`p-3 rounded-2xl border-2 flex items-center justify-center min-h-[48px] min-w-[48px] transition-all hover:-translate-y-0.5 active:translate-y-0.5 border-b-4 ${
             isMuted 
-              ? 'bg-red-50 border-red-200 text-red-600' 
-              : 'bg-green-50 border-green-200 text-green-600'
+              ? 'bg-red-50 border-red-200 border-b-red-300 text-red-600 hover:border-red-300' 
+              : 'bg-teal-50 border-teal-200 border-b-teal-300 text-teal-700 hover:border-teal-300'
           }`}
           title={isMuted ? "Unmute Voice" : "Mute Voice"}
         >
@@ -245,23 +245,23 @@ const Ask = () => {
       </div>
 
       {/* Chat Messages Area */}
-      <div className="flex-1 overflow-y-auto bg-slate-50 rounded-3xl p-6 border-2 border-slate-100 mb-4 space-y-6">
+      <div className="flex-1 overflow-y-auto bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-4 space-y-6 shadow-sm">
         {messages.map((msg) => (
           <div
             key={msg.id}
             className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
           >
             {/* Speaker Name */}
-            <span className="text-sm font-bold text-slate-400 mb-1 px-1">
+            <span className="text-sm font-bold text-slate-500 mb-1 px-1">
               {msg.role === 'user' ? 'You' : 'WiseCompanion'} • {msg.timestamp}
             </span>
 
             {/* Bubble */}
             <div
-              className={`max-w-[85%] rounded-3xl p-6 shadow-md border-2 text-xl leading-relaxed ${
+              className={`max-w-[85%] rounded-2xl p-6 shadow-sm border text-xl leading-relaxed ${
                 msg.role === 'user'
-                  ? 'bg-blue-600 text-white border-transparent'
-                  : 'bg-white text-slate-900 border-slate-100'
+                  ? 'bg-teal-600 text-white border-transparent'
+                  : 'bg-white text-slate-900 border-slate-200'
               }`}
             >
               <p className="whitespace-pre-line">{msg.content}</p>
@@ -270,9 +270,9 @@ const Ask = () => {
               {msg.role === 'assistant' && !isMuted && (
                 <button
                   onClick={() => speakResponse(msg.content)}
-                  className="mt-3 text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 min-h-[32px]"
+                  className="mt-3 text-base font-bold text-teal-700 hover:text-teal-800 flex items-center gap-1.5 min-h-[44px] px-3 bg-teal-50 border-b-2 border-teal-200 hover:border-teal-300 rounded-xl"
                 >
-                  <Volume2 size={16} /> Repeat Response
+                  <Volume2 size={18} /> Repeat Voice
                 </button>
               )}
             </div>
@@ -281,11 +281,11 @@ const Ask = () => {
 
         {isLoading && (
           <div className="flex flex-col items-start">
-            <span className="text-sm font-bold text-slate-400 mb-1">WiseCompanion is thinking...</span>
-            <div className="bg-white border-2 border-slate-100 rounded-3xl p-6 shadow-md flex items-center gap-2">
-              <span className="w-3.5 h-3.5 bg-blue-600 rounded-full animate-bounce" />
-              <span className="w-3.5 h-3.5 bg-blue-600 rounded-full animate-bounce [animation-delay:0.2s]" />
-              <span className="w-3.5 h-3.5 bg-blue-600 rounded-full animate-bounce [animation-delay:0.4s]" />
+            <span className="text-sm font-bold text-slate-500 mb-1">WiseCompanion is thinking...</span>
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex items-center gap-2">
+              <span className="w-3.5 h-3.5 bg-teal-600 rounded-full animate-bounce" />
+              <span className="w-3.5 h-3.5 bg-teal-600 rounded-full animate-bounce [animation-delay:0.2s]" />
+              <span className="w-3.5 h-3.5 bg-teal-600 rounded-full animate-bounce [animation-delay:0.4s]" />
             </div>
           </div>
         )}
@@ -295,16 +295,16 @@ const Ask = () => {
 
       {/* Error and Alert Banners */}
       {errorText && (
-        <div className="bg-red-50 border-2 border-red-200 text-red-800 rounded-2xl p-4 flex items-center gap-3 mb-3">
+        <div className="bg-red-50 border-2 border-red-200 text-red-800 rounded-2xl p-4 flex items-center gap-3 mb-3 shadow-sm">
           <AlertCircle className="text-red-600 flex-shrink-0" size={24} />
           <p className="text-lg font-bold">{errorText}</p>
         </div>
       )}
 
       {isPremiumPrompt && (
-        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 text-amber-900 rounded-3xl p-6 mb-3 shadow-md">
+        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 text-amber-900 rounded-2xl p-6 mb-3 shadow-sm">
           <div className="flex items-start gap-4">
-            <div className="bg-amber-100 p-2.5 rounded-2xl flex-shrink-0 text-amber-700">
+            <div className="bg-amber-100 p-2.5 rounded-xl flex-shrink-0 text-amber-700">
               <Sparkles size={28} />
             </div>
             <div>
@@ -317,7 +317,7 @@ const Ask = () => {
                   window.speechSynthesis.cancel();
                   navigate('/pricing');
                 }}
-                className="mt-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-black px-6 py-3.5 rounded-2xl text-lg hover:opacity-95 shadow-md min-h-[48px]"
+                className="mt-4 bg-teal-600 hover:bg-teal-500 border-b-4 border-teal-800 hover:border-teal-700 hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 text-white font-black px-6 py-3.5 rounded-2xl text-lg shadow-md active:shadow-sm min-h-[48px] transition-all"
               >
                 View Premium Pricing
               </button>
@@ -329,7 +329,7 @@ const Ask = () => {
       {/* Suggestions and Preset Questions when chat is relatively short */}
       {messages.length <= 2 && !isLoading && (
         <div className="mb-4">
-          <p className="text-md font-bold text-slate-400 mb-2 flex items-center gap-1.5">
+          <p className="text-base font-bold text-slate-500 mb-2 flex items-center gap-1.5">
             <HelpCircle size={18} /> Tap any suggestion to ask instantly:
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -337,7 +337,7 @@ const Ask = () => {
               <button
                 key={question}
                 onClick={() => handleSendMessage(question.slice(2))}
-                className="text-left text-lg font-bold px-5 py-4 bg-white hover:bg-blue-50 border-2 border-slate-100 hover:border-blue-400 rounded-2xl shadow-sm text-slate-700 transition-all min-h-[48px]"
+                className="text-left text-lg font-bold px-5 py-4 bg-white hover:bg-teal-50 border border-slate-200 hover:border-teal-400 border-b-4 border-b-slate-300 hover:border-b-teal-500 hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 rounded-2xl shadow-sm text-slate-800 transition-all min-h-[48px]"
               >
                 {question}
               </button>
@@ -348,13 +348,13 @@ const Ask = () => {
 
       {/* Bottom Text and Voice Input Controls */}
       <div className="flex items-center gap-3 pt-2">
-        {/* Voice Dictation Microphone Button (min size 48px) */}
+        {/* Voice Dictation Microphone Button */}
         <button
           onClick={handleMicClick}
-          className={`p-5 rounded-full border-2 flex items-center justify-center shadow-md min-h-[60px] min-w-[60px] transition-all ${
+          className={`p-5 rounded-2xl border-2 border-b-4 flex items-center justify-center shadow-md min-h-[60px] min-w-[60px] transition-all hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 ${
             isListening 
-              ? 'bg-red-500 border-red-600 text-white animate-pulse' 
-              : 'bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-600'
+              ? 'bg-red-500 border-red-600 border-b-red-700 text-white animate-pulse' 
+              : 'bg-teal-50 hover:bg-teal-100 border-teal-200 border-b-teal-300 text-teal-700'
           }`}
           title={isListening ? "Stop Listening" : "Speak to AI"}
         >
@@ -371,17 +371,17 @@ const Ask = () => {
           }}
           placeholder={isListening ? "Listening closely... Speak now!" : "Type your message or ask a question..."}
           disabled={isLoading}
-          className="flex-1 text-xl px-6 py-4.5 border-3 border-slate-200 focus:border-blue-500 focus:outline-none rounded-3xl min-h-[60px] shadow-sm"
+          className="flex-1 text-xl px-6 py-4.5 border-2 border-slate-200 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 rounded-2xl min-h-[60px] shadow-sm bg-white"
         />
 
-        {/* Send text button (min size 48px) */}
+        {/* Send text button */}
         <button
           onClick={() => handleSendMessage(input)}
           disabled={!input.trim() || isLoading}
-          className={`p-5 rounded-full shadow-md min-h-[60px] min-w-[60px] flex items-center justify-center transition-all ${
+          className={`p-5 rounded-2xl border-b-4 shadow-md min-h-[60px] min-w-[60px] flex items-center justify-center transition-all ${
             !input.trim() || isLoading
-              ? 'bg-slate-200 border-transparent text-slate-400 cursor-not-allowed shadow-none'
-              : 'bg-blue-600 hover:bg-blue-700 text-white'
+              ? 'bg-slate-200 border-transparent text-slate-400 cursor-not-allowed border-b-0 shadow-none'
+              : 'bg-teal-600 hover:bg-teal-500 border-teal-800 hover:border-teal-700 text-white hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2'
           }`}
         >
           <Send size={26} />

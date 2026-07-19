@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Plane, MapPin, Calendar, CheckSquare, Square, Plus, Trash2, Briefcase, Hotel, Info } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Plane, MapPin, Calendar, CheckSquare, Square, Plus, Trash2, Briefcase, Hotel, Info } from 'lucide-react';
 
 interface ItineraryDay {
   day: number;
@@ -13,6 +14,7 @@ interface PackingItem {
 }
 
 const Travel = () => {
+  const navigate = useNavigate();
   const [destination, setDestination] = useState('San Diego, California');
   const [startDate, setStartDate] = useState('2025-07-15');
   const [endDate, setEndDate] = useState('2025-07-20');
@@ -62,51 +64,63 @@ const Travel = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto pb-20 text-slate-900">
-      <header className="mb-10 text-center md:text-left">
-        <h1 className="text-4xl font-bold text-slate-900 flex items-center justify-center md:justify-start gap-3">
-          <Plane className="text-blue-600" size={40} />
-          Travel Assistant
-        </h1>
-        <p className="text-xl text-slate-600 mt-2 font-medium">Plan your next adventure with ease.</p>
-      </header>
+    <div className="max-w-4xl mx-auto pb-20 px-4 text-slate-800">
+      {/* Top Header */}
+      <div className="flex items-center justify-between border-b-2 border-slate-100 pb-4 mb-8 gap-4">
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="flex items-center gap-2 text-slate-700 hover:text-slate-900 text-lg font-bold min-h-[48px] px-5 py-2.5 bg-white border-2 border-slate-200 border-b-4 border-b-slate-300 hover:border-slate-300 hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 transition-all rounded-2xl shadow-sm hover:shadow-md"
+        >
+          <ArrowLeft size={24} /> Back
+        </button>
+
+        <div className="flex items-center gap-3">
+          <Plane size={36} className="text-teal-600 hidden sm:inline" />
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-950">Travel Assistant</h1>
+        </div>
+        <div className="w-[80px] hidden sm:block" />
+      </div>
+
+      <p className="text-xl text-slate-600 mb-8 font-medium leading-relaxed">
+        Plan your next friendly adventure with ease. Organize your activities and manage packing lists.
+      </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: Plan Overview */}
         <div className="lg:col-span-2 space-y-8">
           {/* Destination Section */}
-          <section className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <MapPin className="text-rose-500" />
+          <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200">
+            <h2 className="text-2xl font-black mb-6 flex items-center gap-2 text-slate-900">
+              <MapPin className="text-rose-500" size={26} />
               Where are you going?
             </h2>
             <div className="space-y-6">
               <div>
-                <label className="block text-lg font-bold text-slate-700 mb-2">Destination</label>
+                <label className="block text-xl font-bold text-slate-800 mb-2">Destination</label>
                 <input 
                   type="text"
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
-                  className="w-full p-5 bg-slate-50 border-2 border-slate-100 rounded-2xl text-xl focus:border-blue-500 focus:outline-none font-medium"
+                  className="w-full p-4.5 bg-slate-50 border-2 border-slate-200 rounded-2xl text-xl focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 font-medium"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-lg font-bold text-slate-700 mb-2">Start Date</label>
+                  <label className="block text-xl font-bold text-slate-800 mb-2">Start Date</label>
                   <input 
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full p-5 bg-slate-50 border-2 border-slate-100 rounded-2xl text-xl focus:border-blue-500 focus:outline-none"
+                    className="w-full p-4.5 bg-slate-50 border-2 border-slate-200 rounded-2xl text-xl focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 font-medium"
                   />
                 </div>
                 <div>
-                  <label className="block text-lg font-bold text-slate-700 mb-2">End Date</label>
+                  <label className="block text-xl font-bold text-slate-800 mb-2">End Date</label>
                   <input 
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full p-5 bg-slate-50 border-2 border-slate-100 rounded-2xl text-xl focus:border-blue-500 focus:outline-none"
+                    className="w-full p-4.5 bg-slate-50 border-2 border-slate-200 rounded-2xl text-xl focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 font-medium"
                   />
                 </div>
               </div>
@@ -114,36 +128,37 @@ const Travel = () => {
           </section>
 
           {/* Itinerary Section */}
-          <section className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <Calendar className="text-blue-500" />
-              Your Itinerary
+          <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200">
+            <h2 className="text-2xl font-black mb-6 flex items-center gap-2 text-slate-900">
+              <Calendar className="text-teal-600" size={26} />
+              Your Daily Itinerary
             </h2>
             <div className="space-y-8">
               {itinerary.map((day, idx) => (
-                <div key={day.day} className="relative pl-8 border-l-4 border-slate-100 ml-4 group">
-                  <div className="absolute -left-[18px] top-0 bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">
+                <div key={day.day} className="relative pl-8 border-l-4 border-slate-200 ml-4 group">
+                  <div className="absolute -left-[18px] top-0 bg-teal-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">
                     {day.day}
                   </div>
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-bold">Day {day.day}</h3>
+                    <h3 className="text-xl font-black text-slate-950">Day {day.day}</h3>
                     <button 
                       onClick={() => deleteDay(idx)}
-                      className="text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="text-slate-400 hover:text-rose-600 opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-rose-50 rounded-lg"
+                      title="Delete Day"
                     >
                       <Trash2 size={20} />
                     </button>
                   </div>
                   <ul className="space-y-3">
                     {day.activities.map((act, i) => (
-                      <li key={i} className="bg-slate-50 p-4 rounded-xl text-lg font-medium border border-slate-100 flex justify-between items-center">
+                      <li key={i} className="bg-slate-50 p-4 rounded-xl text-lg font-bold border border-slate-200 text-slate-700 flex justify-between items-center shadow-sm">
                         <span>{act}</span>
                       </li>
                     ))}
                     <li>
                       <button 
                         onClick={() => addActivity(idx)}
-                        className="text-blue-600 font-bold flex items-center gap-1 hover:underline"
+                        className="text-teal-700 hover:text-teal-800 font-black text-lg flex items-center gap-1.5 p-2 bg-teal-50 hover:bg-teal-100 rounded-xl transition-all"
                       >
                         <Plus size={18} /> Add Activity
                       </button>
@@ -153,9 +168,9 @@ const Travel = () => {
               ))}
               <button 
                 onClick={addDay}
-                className="w-full py-4 border-2 border-dashed border-slate-200 rounded-2xl text-slate-400 font-bold text-xl hover:bg-slate-50 hover:border-slate-300 transition-colors"
+                className="w-full py-4.5 bg-white border-2 border-dashed border-slate-300 border-b-4 hover:border-teal-400 hover:text-teal-700 hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 transition-all rounded-2xl text-slate-500 font-black text-xl shadow-sm hover:shadow-md"
               >
-                + Add Day
+                + Add Travel Day
               </button>
             </div>
           </section>
@@ -164,20 +179,24 @@ const Travel = () => {
         {/* Right Column: Tools */}
         <div className="space-y-8">
           {/* Packing List */}
-          <section className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-emerald-700">
-              <Briefcase size={24} />
+          <section className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+            <h2 className="text-2xl font-black mb-6 flex items-center gap-2 text-slate-900 border-b border-slate-100 pb-3">
+              <Briefcase className="text-teal-600" size={26} />
               Packing List
             </h2>
-            <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 mb-6">
+            <div className="space-y-4 max-h-[400px] overflow-y-auto pr-1 mb-6">
               {packingList.map(item => (
                 <button 
                   key={item.id}
                   onClick={() => togglePacking(item.id)}
-                  className={`w-full flex items-center gap-3 p-4 rounded-2xl border-2 transition-all ${item.checked ? 'bg-emerald-50 border-emerald-100 opacity-60' : 'bg-white border-slate-100'}`}
+                  className={`w-full flex items-center gap-3.5 p-4 rounded-2xl border-2 border-b-4 transition-all hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 shadow-sm ${
+                    item.checked 
+                      ? 'bg-emerald-50/50 border-emerald-200 border-b-emerald-300 opacity-70' 
+                      : 'bg-white border-slate-200 border-b-slate-300 hover:border-teal-300 text-slate-800'
+                  }`}
                 >
-                  {item.checked ? <CheckSquare className="text-emerald-600" /> : <Square className="text-slate-300" />}
-                  <span className={`text-lg font-bold ${item.checked ? 'line-through text-emerald-800' : 'text-slate-700'}`}>
+                  {item.checked ? <CheckSquare className="text-emerald-600 flex-shrink-0" size={22} /> : <Square className="text-slate-400 flex-shrink-0" size={22} />}
+                  <span className={`text-lg font-black text-left leading-snug ${item.checked ? 'line-through text-emerald-800' : 'text-slate-800'}`}>
                     {item.item}
                   </span>
                 </button>
@@ -189,9 +208,12 @@ const Travel = () => {
                 placeholder="Add item..."
                 value={newItem}
                 onChange={(e) => setNewItem(e.target.value)}
-                className="flex-grow p-4 bg-slate-50 rounded-xl text-lg font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-grow p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl text-lg font-bold focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
-              <button type="submit" className="bg-blue-600 text-white p-4 rounded-xl hover:bg-blue-700 transition-colors shadow-md">
+              <button 
+                type="submit" 
+                className="bg-teal-600 hover:bg-teal-500 text-white p-4.5 rounded-2xl border-b-4 border-teal-800 hover:border-teal-700 hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 transition-all shadow-md flex items-center justify-center"
+              >
                 <Plus size={24} />
               </button>
             </form>
@@ -199,18 +221,24 @@ const Travel = () => {
 
           {/* Quick Tools */}
           <section className="space-y-4">
-            <div className="bg-amber-50 border-2 border-amber-100 p-6 rounded-3xl flex items-center gap-4 cursor-pointer hover:bg-amber-100 transition-colors">
-              <Hotel className="text-amber-600" size={32} />
+            <div 
+              onClick={() => alert("Hotel Finder simulation: Search for accessible stays with zero steps, roll-in showers, and friendly ramps. Feature under active development!")}
+              className="bg-teal-50 hover:bg-teal-100 border-2 border-teal-200 border-b-4 border-b-teal-300 rounded-2xl p-6 flex items-center gap-4 cursor-pointer hover:-translate-y-1 hover:shadow-md active:translate-y-0.5 active:border-b-2 transition-all shadow-sm"
+            >
+              <Hotel className="text-teal-700 flex-shrink-0" size={32} />
               <div>
-                <h4 className="font-bold text-lg text-amber-900">Hotel Finder</h4>
-                <p className="text-amber-700 font-medium">Accessible stays nearby</p>
+                <h4 className="font-black text-lg text-teal-950">Hotel Finder</h4>
+                <p className="text-teal-700 font-bold text-base mt-0.5">Accessible stays nearby</p>
               </div>
             </div>
-            <div className="bg-sky-50 border-2 border-sky-100 p-6 rounded-3xl flex items-center gap-4 cursor-pointer hover:bg-sky-100 transition-colors">
-              <Info className="text-sky-600" size={32} />
+            <div 
+              onClick={() => alert("Baggage Rules lookup simulation: Easily view carry-on sizing and liquid exemptions for medical items. Feature under active development!")}
+              className="bg-slate-50 hover:bg-slate-100 border-2 border-slate-200 border-b-4 border-b-slate-300 rounded-2xl p-6 flex items-center gap-4 cursor-pointer hover:-translate-y-1 hover:shadow-md active:translate-y-0.5 active:border-b-2 transition-all shadow-sm"
+            >
+              <Info className="text-slate-600 flex-shrink-0" size={32} />
               <div>
-                <h4 className="font-bold text-lg text-sky-900">Baggage Rules</h4>
-                <p className="text-sky-700 font-medium">Airline lookup tool</p>
+                <h4 className="font-black text-lg text-slate-900">Baggage Rules</h4>
+                <p className="text-slate-600 font-bold text-base mt-0.5">Airline lookup tool</p>
               </div>
             </div>
           </section>

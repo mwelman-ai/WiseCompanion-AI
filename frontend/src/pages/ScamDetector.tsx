@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Shield, ShieldCheck, ShieldAlert, ShieldQuestion, ArrowLeft, Search, AlertTriangle, Info, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Shield, ShieldCheck, ShieldAlert, ShieldQuestion, ArrowLeft, Search, AlertTriangle, Info, CheckCircle } from 'lucide-react';
 
 type RiskLevel = 'safe' | 'caution' | 'danger' | null;
 
@@ -99,100 +99,103 @@ const ScamDetector = () => {
 
   const getRiskColor = () => {
     switch (result?.risk) {
-      case 'safe': return { bg: 'bg-green-50 border-green-200', text: 'text-green-800', icon: 'text-green-600' };
-      case 'caution': return { bg: 'bg-amber-50 border-amber-200', text: 'text-amber-800', icon: 'text-amber-600' };
-      case 'danger': return { bg: 'bg-red-50 border-red-200', text: 'text-red-800', icon: 'text-red-600' };
-      default: return { bg: 'bg-slate-50 border-slate-200', text: 'text-slate-800', icon: 'text-slate-600' };
+      case 'safe': return { bg: 'bg-emerald-50 border-emerald-200 text-emerald-950', text: 'text-emerald-900', icon: 'text-emerald-600', border: 'border-b-emerald-300' };
+      case 'caution': return { bg: 'bg-amber-50 border-amber-200 text-amber-950', text: 'text-amber-900', icon: 'text-amber-600', border: 'border-b-amber-300' };
+      case 'danger': return { bg: 'bg-rose-50 border-rose-200 text-rose-950', text: 'text-rose-900', icon: 'text-rose-600', border: 'border-b-rose-300' };
+      default: return { bg: 'bg-slate-50 border-slate-200 text-slate-800', text: 'text-slate-900', icon: 'text-slate-600', border: 'border-b-slate-300' };
     }
   };
 
   const getRiskIcon = () => {
     switch (result?.risk) {
-      case 'safe': return <ShieldCheck size={72} className="text-green-600" />;
-      case 'caution': return <ShieldAlert size={72} className="text-amber-600" />;
-      case 'danger': return <ShieldAlert size={72} className="text-red-600" />;
-      default: return <ShieldQuestion size={72} className="text-slate-400" />;
+      case 'safe': return <ShieldCheck size={72} className="text-emerald-600 flex-shrink-0" />;
+      case 'caution': return <ShieldAlert size={72} className="text-amber-600 flex-shrink-0" />;
+      case 'danger': return <ShieldAlert size={72} className="text-rose-600 flex-shrink-0" />;
+      default: return <ShieldQuestion size={72} className="text-slate-400 flex-shrink-0" />;
     }
   };
 
   const getRiskLabel = () => {
     switch (result?.risk) {
-      case 'safe': return 'Looks Safe';
-      case 'caution': return 'Use Caution';
-      case 'danger': return 'Likely a Scam!';
+      case 'safe': return 'This Message Looks Safe!';
+      case 'caution': return 'Please Use Caution!';
+      case 'danger': return 'Warning: Likely a Scam!';
       default: return '';
     }
   };
 
   const getProbabilityColor = () => {
     if (!result) return '';
-    if (result.probability >= 60) return 'bg-red-500';
+    if (result.probability >= 60) return 'bg-rose-500';
     if (result.probability >= 30) return 'bg-amber-500';
-    return 'bg-green-500';
+    return 'bg-emerald-500';
   };
 
   return (
-    <div className="max-w-4xl mx-auto pb-20">
-      <button
-        onClick={() => navigate('/dashboard')}
-        className="flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-6 text-lg font-medium transition-colors"
-      >
-        <ArrowLeft size={24} /> Back to Dashboard
-      </button>
+    <div className="max-w-4xl mx-auto pb-20 px-4 text-slate-800">
+      {/* Top Header */}
+      <div className="flex items-center justify-between border-b-2 border-slate-100 pb-4 mb-8 gap-4">
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="flex items-center gap-2 text-slate-700 hover:text-slate-900 text-lg font-bold min-h-[48px] px-5 py-2.5 bg-white border-2 border-slate-200 border-b-4 border-b-slate-300 hover:border-slate-300 hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 transition-all rounded-2xl shadow-sm hover:shadow-md"
+        >
+          <ArrowLeft size={24} /> Back
+        </button>
 
-      <header className="mb-8">
-        <h1 className="text-4xl font-bold text-slate-900 flex items-center gap-3">
-          <Shield size={36} className="text-blue-600" />
-          Scam Detector
-        </h1>
-        <p className="text-xl text-slate-600 mt-2">
-          Paste an email, text message, or URL below to check if it's a scam.
-        </p>
-      </header>
+        <div className="flex items-center gap-3">
+          <Shield size={36} className="text-teal-600 hidden sm:inline" />
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-950">Scam Detector</h1>
+        </div>
+        <div className="w-[80px] hidden sm:block" />
+      </div>
+
+      <p className="text-xl text-slate-600 mb-8 font-medium leading-relaxed">
+        Keep yourself safe from digital fraud. Paste any email message, text, or link below to run an instant safety evaluation.
+      </p>
 
       {/* Input Section */}
-      <section className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 mb-8">
-        <label className="block text-2xl font-bold text-slate-800 mb-4">
+      <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 mb-8">
+        <label className="block text-2xl font-black text-slate-900 mb-4">
           Paste the message or link to analyze
         </label>
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Paste the suspicious email, text, or URL here..."
-          className="w-full min-h-[160px] p-5 bg-slate-50 border-2 border-slate-100 rounded-2xl text-xl focus:border-blue-500 focus:outline-none transition-all resize-y"
+          placeholder="Paste the suspicious text, email, or website link here..."
+          className="w-full min-h-[160px] p-5 bg-slate-50 border-2 border-slate-200 rounded-2xl text-xl focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all resize-y font-medium"
           rows={5}
         />
         <button
           onClick={analyzeText}
           disabled={!input.trim() || isScanning}
-          className={`mt-4 w-full py-5 rounded-2xl text-2xl font-bold flex items-center justify-center gap-3 transition-all ${
+          className={`mt-4 w-full py-5 rounded-2xl text-2xl font-black flex items-center justify-center gap-3 transition-all border-b-4 hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 shadow-md ${
             !input.trim() || isScanning
-              ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-              : 'bg-blue-600 text-white shadow-lg hover:bg-blue-700'
+              ? 'bg-slate-200 border-transparent text-slate-400 border-b-0 cursor-not-allowed shadow-none'
+              : 'bg-teal-600 border-teal-800 hover:border-teal-700 text-white'
           }`}
         >
           <Search size={28} />
-          {isScanning ? 'Analyzing...' : 'Analyze Message'}
+          {isScanning ? 'Analyzing message closely...' : 'Analyze Message'}
         </button>
       </section>
 
       {/* Results Section */}
       {result && (
-        <section className={`rounded-3xl p-8 border-2 ${getRiskColor().bg} ${getRiskColor().text} transition-all`}>
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-            <div className="flex-shrink-0">
+        <section className={`rounded-2xl p-6 md:p-8 border-2 border-b-4 shadow-md ${getRiskColor().bg} ${getRiskColor().border} ${getRiskColor().text} transition-all`}>
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+            <div className="flex-shrink-0 bg-white p-3 rounded-2xl shadow-sm border border-slate-100">
               {getRiskIcon()}
             </div>
-            <div className="flex-1 text-center md:text-left">
-              <h2 className={`text-3xl font-bold mb-2 ${getRiskColor().text}`}>
+            <div className="flex-1 text-center md:text-left w-full">
+              <h2 className="text-3xl font-black mb-2 leading-tight">
                 {getRiskLabel()}
               </h2>
-              <p className="text-2xl font-semibold mb-4">
-                Scam Probability: <span className="font-black">{result.probability}%</span>
+              <p className="text-2xl font-bold mb-4">
+                Scam Probability Score: <span className="font-black underline">{result.probability}%</span>
               </p>
 
               {/* Probability Bar */}
-              <div className="w-full bg-slate-200 rounded-full h-6 mb-6 overflow-hidden">
+              <div className="w-full bg-slate-200/80 rounded-full h-7 mb-6 overflow-hidden border border-slate-350">
                 <div
                   className={`h-full rounded-full transition-all duration-1000 ${getProbabilityColor()}`}
                   style={{ width: `${result.probability}%` }}
@@ -200,15 +203,15 @@ const ScamDetector = () => {
               </div>
 
               {/* Reasons */}
-              <div className="mb-6">
-                <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                  <AlertTriangle size={24} />
+              <div className="mb-6 bg-white/60 backdrop-blur-sm rounded-xl p-5 border border-slate-200/20">
+                <h3 className="text-xl font-black mb-3 flex items-center justify-center md:justify-start gap-2 border-b border-slate-300/30 pb-2">
+                  <AlertTriangle size={24} className="text-amber-600" />
                   Analysis Details
                 </h3>
-                <ul className="space-y-3">
+                <ul className="space-y-3.5 text-left">
                   {result.reasons.map((reason, i) => (
-                    <li key={i} className="flex items-start gap-3 text-lg">
-                      <Info size={22} className="flex-shrink-0 mt-0.5" />
+                    <li key={i} className="flex items-start gap-3 text-lg font-bold">
+                      <Info size={22} className="flex-shrink-0 mt-0.5 text-teal-600" />
                       <span>{reason}</span>
                     </li>
                   ))}
@@ -216,18 +219,18 @@ const ScamDetector = () => {
               </div>
 
               {/* Recommended Actions */}
-              <div>
-                <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                  <CheckCircle size={24} />
-                  Recommended Actions
+              <div className="bg-white/60 backdrop-blur-sm rounded-xl p-5 border border-slate-200/20">
+                <h3 className="text-xl font-black mb-3 flex items-center justify-center md:justify-start gap-2 border-b border-slate-300/30 pb-2">
+                  <CheckCircle size={24} className="text-emerald-600" />
+                  Recommended Safe Actions
                 </h3>
-                <ul className="space-y-3">
+                <ul className="space-y-3.5 text-left">
                   {result.actions.map((action, i) => (
-                    <li key={i} className="flex items-start gap-3 text-lg font-medium">
-                      <span className="flex-shrink-0 w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold mt-0.5">
+                    <li key={i} className="flex items-start gap-3 text-lg font-bold">
+                      <span className="flex-shrink-0 w-7 h-7 rounded-full bg-teal-600 text-white flex items-center justify-center text-sm font-black mt-0.5">
                         {i + 1}
                       </span>
-                      <span>{action}</span>
+                      <span className="leading-snug">{action}</span>
                     </li>
                   ))}
                 </ul>
@@ -237,15 +240,30 @@ const ScamDetector = () => {
         </section>
       )}
 
-      {/* Tips */}
-      <section className="mt-8 bg-amber-50 border-2 border-amber-200 rounded-3xl p-6">
-        <h3 className="text-xl font-bold text-amber-800 mb-3">🛡️ Tips to Stay Safe</h3>
-        <ul className="space-y-2 text-lg text-amber-900">
-          <li>• Never share passwords, PINs, or social security numbers via email or text</li>
-          <li>• Legitimate companies won't ask for gift card payments</li>
-          <li>• Hover over links before clicking to see where they really go</li>
-          <li>• When in doubt, contact the company directly using a trusted number</li>
-          <li>• Report scams to the FTC at <strong>ReportFraud.ftc.gov</strong></li>
+      {/* Safety Tips */}
+      <section className="mt-8 bg-amber-50 border-2 border-amber-200 border-b-4 border-b-amber-300 rounded-2xl p-6 md:p-8">
+        <h3 className="text-xl font-black text-amber-950 mb-4 flex items-center gap-2">🛡️ Daily Security Guidelines</h3>
+        <ul className="space-y-3 text-lg text-amber-900 font-bold leading-relaxed">
+          <li className="flex items-start gap-2">
+            <span className="text-amber-500">•</span>
+            <span>Never share sensitive passwords, login PINs, or social security details via email or text message.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-amber-500">•</span>
+            <span>Legitimate commercial institutions or banks will never demand payment in Gift Cards or Bitcoin.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-amber-500">•</span>
+            <span>Hover or carefully review links before tapping on them to see exactly where they are directing you.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-amber-500">•</span>
+            <span>When in deep doubt, always contact the company directly using a phone number printed on your physical statement.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-amber-500">•</span>
+            <span>Report suspicious messages to the Federal Trade Commission at <strong className="underline">ReportFraud.ftc.gov</strong>.</span>
+          </li>
         </ul>
       </section>
     </div>
