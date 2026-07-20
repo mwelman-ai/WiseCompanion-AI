@@ -3,6 +3,7 @@ import Stripe from 'stripe';
 import { dbService, isMockMode } from '../services/dbService.js';
 import { createCheckoutSession } from '../services/stripeService.js';
 import { requireAuth, type AuthenticatedRequest } from '../middleware/auth.js';
+import { analyticsService } from '../services/analyticsService.js';
 
 const router = Router();
 
@@ -70,6 +71,10 @@ router.post('/mock-upgrade-direct', requireAuth, async (req: AuthenticatedReques
     if (!success) {
       return res.status(404).json({ error: 'User profile not found' });
     }
+    
+    // Track upgrade in analytics
+    await analyticsService.trackUpgrade(userId, 'premium', 'mock_direct_upgrade');
+
     const updated = await dbService.getUserProfile(userId);
     return res.json({ 
       success: true, 
@@ -112,6 +117,9 @@ router.post('/webhook', async (req, res) => {
       if (userId) {
         console.log(`[stripeWebhook] Upgrading user ${userId} to premium tier.`);
         await dbService.updateUserPlan(userId, 'premium');
+        
+        // Track upgrade in analytics
+        await analyticsService.trackUpgrade(userId, 'premium', session.id);
       }
     } else if (event.type === 'customer.subscription.deleted') {
       const subscription = event.data.object;

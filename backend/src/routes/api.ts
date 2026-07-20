@@ -9,6 +9,8 @@ import medicationsRouter from './medications.js';
 import travelRouter from './travel.js';
 import familyRouter from './family.js';
 import subscriptionsRouter from './subscriptions.js';
+import notificationsRouter from './notifications.js';
+import uploadsRouter from './uploads.js';
 
 const router = Router();
 
@@ -63,5 +65,11 @@ router.use('/subscriptions', subscriptionsRouter);
 
 // Mount direct /api/user/subscription endpoint as requested
 router.use('/user', subscriptionsRouter);
+
+// Mount Notifications routes: /api/notifications/sms
+router.use('/notifications', notificationsRouter);
+
+// Mount uploads endpoint: POST /api/uploads
+router.use('/uploads', uploadsRouter);
 
 export default router;

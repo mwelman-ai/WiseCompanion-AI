@@ -2,6 +2,7 @@ import { Router } from 'express';
 import OpenAI from 'openai';
 import { dbService, isMockMode } from '../services/dbService.js';
 import { requireAuth, type AuthenticatedRequest } from '../middleware/auth.js';
+import { analyticsService } from '../services/analyticsService.js';
 
 const router = Router();
 
@@ -125,6 +126,14 @@ router.post('/', requireAuth, async (req: AuthenticatedRequest, res) => {
       reasons: result.reasons,
       actions: result.actions,
       createdAt: new Date().toISOString()
+    });
+
+    // Track scam detector usage in analytics
+    await analyticsService.trackFeatureUsage(userId, 'scam_check', {
+      status: result.status,
+      probability: result.probability,
+      content_length: contentToAnalyze.length,
+      used_openai: hasApiKey
     });
 
     return res.json(result);

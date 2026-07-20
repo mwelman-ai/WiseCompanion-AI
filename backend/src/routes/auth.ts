@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { dbService, isMockMode } from '../services/dbService.js';
 import { supabase } from '../config/supabase.js';
 import { requireAuth, type AuthenticatedRequest } from '../middleware/auth.js';
+import { analyticsService } from '../services/analyticsService.js';
 
 const router = Router();
 
@@ -30,6 +31,9 @@ router.post('/signup', async (req, res) => {
         planTier: 'free',
         createdAt: new Date().toISOString()
       });
+
+      // Track signup event
+      await analyticsService.trackSignup(userId, email, 'mock-mode');
 
       // Generate base64 mock token
       const token = Buffer.from(JSON.stringify({ id: userId, email, fullName: name, planTier: 'free' })).toString('base64');
@@ -63,6 +67,9 @@ router.post('/signup', async (req, res) => {
         planTier: 'free',
         createdAt: new Date().toISOString()
       });
+
+      // Track signup event
+      await analyticsService.trackSignup(data.user.id, email, 'live-mode');
 
       return res.status(201).json({
         token: data.session?.access_token || '',
@@ -98,6 +105,9 @@ router.post('/login', async (req, res) => {
         });
       }
 
+      // Track login event
+      await analyticsService.trackEvent(userId, 'user_login', { method: 'mock-mode' });
+
       // Generate token
       const token = Buffer.from(JSON.stringify(profile)).toString('base64');
       return res.json({
@@ -128,6 +138,9 @@ router.post('/login', async (req, res) => {
           createdAt: new Date().toISOString()
         });
       }
+
+      // Track login event
+      await analyticsService.trackEvent(data.user.id, 'user_login', { method: 'live-mode' });
 
       return res.json({
         token: data.session.access_token,

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { dbService } from '../services/dbService.js';
 import { generateResponse } from '../services/openaiService.js';
 import { requireAuth, type AuthenticatedRequest } from '../middleware/auth.js';
+import { analyticsService } from '../services/analyticsService.js';
 
 const router = Router();
 
@@ -64,6 +65,13 @@ router.post('/', requireAuth, async (req: AuthenticatedRequest, res) => {
       role: 'assistant',
       content: replyContent,
       createdAt: new Date().toISOString()
+    });
+
+    // Track chat feature usage
+    await analyticsService.trackFeatureUsage(user.id, 'chat_message', {
+      plan_tier: user.planTier,
+      prompt_length: prompt.length,
+      response_length: replyContent.length
     });
 
     return res.json({

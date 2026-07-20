@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import path from 'path';
 import apiRoutes from './routes/api.js';
 
 dotenv.config();
@@ -18,6 +19,9 @@ app.use(express.json());
 
 // Routes
 app.use('/api', apiRoutes);
+
+// Serve local static uploads (mock/fallback file storage)
+app.use('/uploads', express.static(path.resolve('public/uploads')));
 
 app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({ status: 'ok', message: 'WiseCompanion AI API is running' });
