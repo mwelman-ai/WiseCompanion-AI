@@ -62,6 +62,20 @@ const analyzeScamRuleBased = (text: string) => {
     actions.push('No legitimate bank or government agency will ever ask for credentials, PIN, or SSN over text.');
   }
 
+  // 5. Family impersonation / grandparent scam detection
+  const familyMemberKeywords = ['grandson', 'granddaughter', 'grandchild', 'grandma', 'grandpa', 'grandmother', 'grandfather', 'nephew', 'niece', 'aunt', 'uncle', 'mom', 'dad', 'son', 'daughter'];
+  const emergencyContext = /\b(jail|arrest|bail|police|court|lawyer|accident|hospital|emergency|overseas|stranded|stuck)\b/i.test(p);
+  const moneyRequest = /\b(send money|wire|transfer|cash|gift card|western union|money gram|bail|pay|need.*money|help.*money)\b/i.test(p);
+  const hasFamilyRef = familyMemberKeywords.some(k => p.includes(k));
+  if (hasFamilyRef && (emergencyContext || moneyRequest)) {
+    score += 40;
+    reasons.push('Family impersonation scam detected — someone is pretending to be a relative in distress.');
+    reasons.push('Scammers often call or text claiming a loved one is in jail, in an accident, or stranded overseas and needs money urgently.');
+    actions.push('Stop and call the relative directly using a phone number you already know and trust.');
+    actions.push('Do NOT send money, gift cards, or wire transfers without verifying the person is safe.');
+    actions.push('Tell a trusted family member or friend about this request before taking any action.');
+  }
+
   // Cap score for standard checks
   const probability = Math.min(score, 100);
   
