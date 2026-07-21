@@ -2,9 +2,10 @@ import type { Request, Response, NextFunction } from 'express';
 import { dbService, isMockMode, type UserProfile } from '../services/dbService.js';
 import { supabase } from '../config/supabase.js';
 
-// Extend Express Request type to include the authenticated user
+// Extend Express Request type to include the authenticated user and file upload
 export interface AuthenticatedRequest extends Request {
   user?: UserProfile;
+  file?: any;
 }
 
 export const requireAuth = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
