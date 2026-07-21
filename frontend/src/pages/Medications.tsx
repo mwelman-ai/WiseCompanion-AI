@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Plus, Check, X, Clock, Pill, Trash2, Calendar } from 'lucide-react';
+import { ArrowLeft, Plus, Check, X, Clock, Pill, Trash2, Calendar, Phone, Send } from 'lucide-react';
+import { apiFetch } from '../lib/api';
 
 interface Medication {
   id: string;
@@ -33,6 +34,49 @@ const Medications = () => {
   const [newName, setNewName] = useState('');
   const [newDosage, setNewDosage] = useState('');
   const [newTime, setNewTime] = useState('08:00');
+
+  const [phoneNumber, setPhoneNumber] = useState(localStorage.getItem('wc-reminder-phone') || '');
+  const [smsSendingId, setSmsSendingId] = useState<string | null>(null);
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setPhoneNumber(val);
+    localStorage.setItem('wc-reminder-phone', val);
+  };
+
+  const triggerSmsReminder = async (medName: string, dosage: string, time: string) => {
+    if (!phoneNumber) {
+      alert('Please enter a reminder phone number first!');
+      return;
+    }
+
+    const key = `${medName}-${time}`;
+    setSmsSendingId(key);
+    try {
+      const response = await apiFetch('/api/notifications/sms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: phoneNumber,
+          message: `Hi! This is WiseCompanion. Just a warm, supportive reminder to take your medication: ${medName} (${dosage}) scheduled for ${time}. Stay healthy and consistent!`
+        })
+      });
+
+      const data = await response.json();
+      if (response.ok && data.success) {
+        alert(data.mocked 
+          ? `SMS Sent (Mock Mode)! See console for details.\n\nTo: ${phoneNumber}\nMessage: "Hi! This is WiseCompanion..."` 
+          : `SMS Reminder sent successfully to ${phoneNumber}!`
+        );
+      } else {
+        alert(`Failed to send SMS reminder: ${data.error || 'Unknown error'}`);
+      }
+    } catch (err: any) {
+      alert(`Error sending SMS reminder: ${err.message}`);
+    } finally {
+      setSmsSendingId(null);
+    }
+  };
 
   const addMedication = (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,8 +119,43 @@ const Medications = () => {
     m.schedule.map(time => ({ ...m, time }))
   ).sort((a, b) => a.time.localeCompare(b.time));
 
+  // Check for auto-SMS reminders based on schedule time matching current hour:min
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const currentHourMin = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+      
+      allScheduleItems.forEach(item => {
+        const isTaken = item.takenToday.includes(item.time);
+        if (item.time === currentHourMin && !isTaken) {
+          const storageKey = `wc-reminded-${item.id}-${item.time}-${now.toDateString()}`;
+          if (!localStorage.getItem(storageKey)) {
+            localStorage.setItem(storageKey, 'true');
+            if (phoneNumber) {
+              console.log(`[Medication Reminders] Auto-triggering SMS reminder for ${item.name} at ${item.time}`);
+              apiFetch('/api/notifications/sms', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  to: phoneNumber,
+                  message: `Hi! This is WiseCompanion. Warm, friendly reminder to take your medication: ${item.name} (${item.dosage}) scheduled for ${item.time}. Stay healthy and consistent!`
+                })
+              }).then(res => res.json()).then(data => {
+                console.log('[Auto SMS Reminder Result]:', data);
+              }).catch(err => {
+                console.error('[Auto SMS Reminder Error]:', err);
+              });
+            }
+          }
+        }
+      });
+    }, 15000); // Check every 15 seconds
+    
+    return () => clearInterval(interval);
+  }, [allScheduleItems, phoneNumber]);
+
   return (
-    <div className="max-w-4xl mx-auto pb-20 px-4 text-slate-800">
+    <div className="max-w-4xl mx-auto pb-20 px-4 text-slate-800 animate-fade-in">
       {/* Top Header */}
       <div className="flex items-center justify-between border-b-2 border-slate-100 pb-4 mb-8 gap-4">
         <button
@@ -104,6 +183,31 @@ const Medications = () => {
         Easily manage and track your daily doses to stay healthy, strong, and consistent.
       </p>
 
+      {/* SMS Reminder Configuration Section */}
+      <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 mb-8">
+        <h2 className="text-2xl font-black text-slate-900 mb-4 flex items-center gap-2">
+          <Phone className="text-teal-600" size={28} />
+          SMS Reminder Setup
+        </h2>
+        <p className="text-lg text-slate-600 mb-4 leading-relaxed font-bold">
+          Enter your caretaker's or your own mobile phone number to receive warm, supportive text alerts when it's time for a dose.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 items-center">
+          <input
+            type="tel"
+            value={phoneNumber}
+            onChange={handlePhoneChange}
+            placeholder="e.g. +1234567890 (International format)"
+            className="w-full sm:flex-1 p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl text-lg focus:border-teal-500 focus:outline-none font-bold"
+          />
+          {phoneNumber && (
+            <div className="text-emerald-600 font-bold flex items-center gap-2 px-2 text-lg whitespace-nowrap">
+              <Check size={20} /> Saved to Settings
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Daily Timeline */}
       <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 mb-8">
         <h2 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-2">
@@ -129,7 +233,7 @@ const Medications = () => {
               return (
                 <div 
                   key={`${item.id}-${item.time}`} 
-                  className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl border-2 transition-all shadow-sm ${
+                  className={`flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl border-2 transition-all shadow-sm ${
                     isTaken 
                       ? 'bg-emerald-50/50 border-emerald-200 opacity-80' 
                       : 'bg-slate-50/50 border-slate-200'
@@ -145,7 +249,18 @@ const Medications = () => {
                     </div>
                   </div>
 
-                  <div className="flex gap-3 w-full sm:w-auto">
+                  <div className="flex gap-3 w-full md:w-auto items-center flex-wrap sm:flex-nowrap">
+                    {phoneNumber && !isTaken && (
+                      <button 
+                        onClick={() => triggerSmsReminder(item.name, item.dosage, item.time)}
+                        disabled={smsSendingId === `${item.name}-${item.time}`}
+                        className="flex-1 sm:flex-none px-5 py-3.5 rounded-2xl font-bold text-lg text-teal-700 bg-teal-50 border-2 border-teal-200 hover:bg-teal-100 hover:border-teal-300 transition-all flex items-center justify-center gap-2 shadow-md hover:-translate-y-0.5 active:translate-y-0.5 min-h-[48px]"
+                        title="Send manual reminder text"
+                      >
+                        <Send size={18} />
+                        {smsSendingId === `${item.name}-${item.time}` ? 'Sending...' : 'Send SMS'}
+                      </button>
+                    )}
                     <button 
                       onClick={() => toggleTaken(item.id, item.time)}
                       className={`flex-1 sm:flex-none px-6 py-3.5 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 border-b-4 transition-all hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 shadow-md ${
@@ -160,7 +275,7 @@ const Medications = () => {
                     {!isTaken && (
                       <button 
                         onClick={() => alert(`Skipped dose of ${item.name} at ${item.time}. Remember to log it with your caretaker if needed!`)}
-                        className="px-5 py-3.5 rounded-2xl font-bold text-lg text-slate-600 bg-white border-2 border-slate-200 border-b-4 border-b-slate-300 hover:text-rose-600 hover:border-rose-400 hover:border-b-rose-500 hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 transition-all shadow-md"
+                        className="flex-1 sm:flex-none px-5 py-3.5 rounded-2xl font-bold text-lg text-slate-600 bg-white border-2 border-slate-200 border-b-4 border-b-slate-300 hover:text-rose-600 hover:border-rose-400 hover:border-b-rose-500 hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 transition-all shadow-md"
                       >
                         Skip
                       </button>
@@ -204,7 +319,7 @@ const Medications = () => {
 
       {/* Add Medication Modal */}
       {isAdding && (
-        <div className="fixed inset-0 bg-black/55 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
+        <div className="fixed inset-0 bg-black/55 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl p-6 sm:p-8 w-full max-w-lg shadow-2xl border border-slate-200 animate-slide-up">
             <div className="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
               <h2 className="text-2xl sm:text-3xl font-black text-slate-950 flex items-center gap-2">

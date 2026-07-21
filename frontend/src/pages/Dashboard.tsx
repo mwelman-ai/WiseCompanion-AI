@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MessageCircle, Shield, Heart, Pill, Plane, Users, Sun, Moon, Sparkles, Contrast } from 'lucide-react';
 import { toggleDarkMode, toggleHighContrast } from '../lib/utils';
@@ -10,7 +10,7 @@ const cards = [
     icon: MessageCircle,
     color: 'text-teal-600',
     bg: 'bg-teal-50',
-    border: 'border-teal-100 hover:border-teal-500',
+    border: 'border-teal-100 hover:border-teal-400',
     path: '/ask',
     badge: 'Voice Active'
   },
@@ -20,7 +20,7 @@ const cards = [
     icon: Shield,
     color: 'text-amber-600',
     bg: 'bg-amber-50',
-    border: 'border-amber-100 hover:border-amber-500',
+    border: 'border-amber-100 hover:border-amber-400',
     path: '/scam-detector',
     badge: 'Security'
   },
@@ -30,7 +30,7 @@ const cards = [
     icon: Heart,
     color: 'text-emerald-600',
     bg: 'bg-emerald-50',
-    border: 'border-emerald-100 hover:border-emerald-500',
+    border: 'border-emerald-100 hover:border-emerald-400',
     path: '/health',
     badge: 'Daily Log'
   },
@@ -40,7 +40,7 @@ const cards = [
     icon: Pill,
     color: 'text-teal-600',
     bg: 'bg-teal-50',
-    border: 'border-teal-100 hover:border-teal-500',
+    border: 'border-teal-100 hover:border-teal-400',
     path: '/medications',
     badge: 'Reminders'
   },
@@ -50,109 +50,114 @@ const cards = [
     icon: Plane,
     color: 'text-indigo-600',
     bg: 'bg-indigo-50',
-    border: 'border-indigo-100 hover:border-indigo-500',
+    border: 'border-indigo-100 hover:border-indigo-400',
     path: '/travel',
-    badge: 'Plan Trip'
+    badge: 'Travel'
   },
   {
-    title: 'Family & Communication',
-    desc: 'Send warm texts, generate greeting cards, and save emergency contacts.',
+    title: 'Family & Friends',
+    desc: 'Send messages, share updates, and stay connected with loved ones.',
     icon: Users,
     color: 'text-rose-600',
     bg: 'bg-rose-50',
-    border: 'border-rose-100 hover:border-rose-500',
+    border: 'border-rose-100 hover:border-rose-400',
     path: '/family',
-    badge: 'Stay Connected'
-  }
+    badge: 'Connect'
+  },
 ];
 
-export default function Dashboard() {
+const Dashboard = () => {
   const navigate = useNavigate();
+  const [isDark, setIsDark] = useState(false);
+  const [isHighContrast, setIsHighContrast] = useState(false);
+
+  useEffect(() => {
+    setIsDark(localStorage.getItem('wisecompanion-dark-mode') === 'true');
+    setIsHighContrast(localStorage.getItem('wisecompanion-high-contrast') === 'true');
+  }, []);
+
+  const handleDarkToggle = () => {
+    toggleDarkMode();
+    setIsDark(!isDark);
+  };
+
+  const handleContrastToggle = () => {
+    toggleHighContrast();
+    setIsHighContrast(!isHighContrast);
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-      {/* Navigation */}
-      <nav className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Sparkles className="h-6 w-6 text-teal-600 mr-2" />
-              <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-teal-800 bg-clip-text text-transparent dark:from-teal-400 dark:to-teal-200">
-                WiseCompanion AI
-              </span>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={toggleHighContrast}
-                className="p-2 text-gray-500 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:text-teal-400 dark:hover:bg-gray-700"
-                title="Toggle High Contrast"
-              >
-                <Contrast className="h-5 w-5" />
-              </button>
-              <button
-                onClick={toggleDarkMode}
-                className="p-2 text-gray-500 hover:text-teal-600 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:text-teal-400 dark:hover:bg-gray-700"
-                title="Toggle Dark Mode"
-              >
-                <Sun className="h-5 w-5 dark:hidden" />
-                <Moon className="h-5 w-5 hidden dark:block" />
-              </button>
-              <div className="h-8 w-px bg-gray-200 dark:bg-gray-700" />
-              <button 
-                onClick={() => navigate('/login')}
-                className="text-sm font-medium text-gray-700 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-400"
-              >
-                Sign Out
-              </button>
-            </div>
+    <div className="app-container">
+      {/* Top Bar — teal brand */}
+      <nav className="mb-6 flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm md:px-6">
+        <div className="flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-cyan-600 shadow-md">
+            <Heart size={24} color="white" fill="white" />
           </div>
+          <span className="text-2xl font-bold text-slate-800">WiseCompanion</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleContrastToggle}
+            className="btn btn-circle btn-raised"
+            title="Toggle High Contrast"
+          >
+            <Contrast size={22} />
+          </button>
+          <button
+            onClick={handleDarkToggle}
+            className="btn btn-circle btn-raised"
+            title="Toggle Dark Mode"
+          >
+            {isDark ? <Sun size={22} /> : <Moon size={22} />}
+          </button>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Welcome Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white sm:text-5xl md:text-6xl mb-4">
-            Welcome to Your <span className="text-teal-600 dark:text-teal-400">WiseCompanion</span>
-          </h1>
-          <p className="max-w-md mx-auto text-base text-gray-500 dark:text-gray-400 sm:text-lg md:text-xl md:max-w-3xl">
-            Your friendly, all-in-one AI assistant designed to make technology simple, helpful, and safe every single day.
-          </p>
-        </div>
+      {/* Greeting Banner — teal gradient */}
+      <div className="greeting-banner">
+        <h2>Good morning! 🌤️</h2>
+        <p>Here's your daily overview. How are you feeling today?</p>
+      </div>
 
-        {/* Feature Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {cards.map((card, i) => (
-            <div
-              key={i}
-              onClick={() => navigate(card.path)}
-              className={`bg-white dark:bg-gray-800 rounded-2xl border ${card.border} p-6 shadow-sm transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between group relative overflow-hidden`}
-            >
-              <div>
-                <div className="flex justify-between items-start mb-4">
-                  <div className={`p-3 rounded-xl ${card.bg} text-teal-600 transition-colors duration-200`}>
-                    <card.icon className={`h-6 w-6 ${card.color}`} />
-                  </div>
-                  <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${card.bg} ${card.color}`}>
-                    {card.badge}
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
-                  {card.title}
-                </h3>
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                  {card.desc}
-                </p>
+      {/* Feature Cards Grid — each with its own accent color */}
+      <div className="cards-grid">
+        {cards.map((card, i) => (
+          <button
+            key={i}
+            onClick={() => navigate(card.path)}
+            className="feature-card"
+          >
+            <div>
+              <div className={`card-icon ${card.bg} ${card.color}`}>
+                <card.icon size={32} />
               </div>
-              <div className="mt-6 pt-4 border-t border-gray-50 dark:border-gray-700/50 flex items-center text-sm font-medium text-teal-600 dark:text-teal-400 group-hover:translate-x-1 transition-transform">
-                Get Started &rarr;
-              </div>
+              <h2 className="text-slate-800">{card.title}</h2>
+              <p className="text-slate-500">{card.desc}</p>
             </div>
-          ))}
-        </div>
-      </main>
+            <span className={`badge mt-4 self-start ${card.bg} ${card.color}`}>{card.badge}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Premium CTA — teal button */}
+      <div className="premium-overlay">
+        <h3 className="text-2xl font-bold text-slate-800 mb-2">
+          <Sparkles size={24} className="inline text-teal-500 mr-2" />
+          Go Premium
+        </h3>
+        <p className="text-slate-500 text-lg mb-4">
+          Unlock unlimited voice chat, advanced scam detection, and more.
+        </p>
+        <button
+          onClick={() => navigate('/pricing')}
+          className="btn btn-primary btn-raised"
+        >
+          See Plans <Sparkles size={20} />
+        </button>
+      </div>
     </div>
   );
-}
+};
+
+export default Dashboard;

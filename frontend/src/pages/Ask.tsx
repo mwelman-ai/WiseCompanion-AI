@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Mic, MicOff, Send, Volume2, VolumeX, Sparkles, AlertCircle, HelpCircle } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { ArrowLeft, Mic, MicOff, Send, Volume2, VolumeX, Sparkles, AlertCircle, HelpCircle, ShieldAlert } from 'lucide-react';
 
 interface ChatMessage {
   id: string;
@@ -25,6 +25,34 @@ const Ask = () => {
   const [isListening, setIsListening] = useState(false);
   const [errorText, setErrorText] = useState<string | null>(null);
   const [isPremiumPrompt, setIsPremiumPrompt] = useState(false);
+  const [scamWarning, setScamWarning] = useState<string | null>(null);
+  
+  // Scam detection patterns
+  const scamPatterns = [
+    { keywords: ['grandson', 'granddaughter', 'grandchild', 'nephew', 'niece'], context: ['jail', 'arrest', 'bail', 'police', 'court', 'lawyer', 'emergency'] },
+    { keywords: ['urgent', 'immediately', 'right away', 'asap'], context: ['money', 'cash', 'wire', 'transfer', 'send', 'pay', 'gift card'] },
+    { keywords: ['western union', 'money gram', 'wire transfer', 'gift card'], context: ['pay', 'send', 'need', 'help', 'emergency'] },
+    { keywords: ['social security', 'ssn', 'irs', 'tax', 'government'], context: ['suspend', 'verify', 'confirm', 'fee', 'payment'] },
+    { keywords: ['lottery', 'prize', 'won', 'winner', 'inheritance', 'prince'], context: ['claim', 'fee', 'tax', 'pay', 'bank account', 'personal'] },
+    { keywords: ['bitcoin', 'crypto', 'cryptocurrency', 'investment'], context: ['guaranteed', 'return', 'profit', 'opportunity', 'limited'] },
+    { keywords: ['password', 'pin', 'bank account', 'credit card', 'debit card'], context: ['verify', 'confirm', 'send', 'tell', 'give', 'provide'] },
+  ];
+  
+  const checkForScam = (text: string): string | null => {
+    const lower = text.toLowerCase();
+    for (const pattern of scamPatterns) {
+      const hasKeyword = pattern.keywords.some(k => lower.includes(k));
+      const hasContext = pattern.context.some(c => lower.includes(c));
+      if (hasKeyword && hasContext) {
+        return `⚠️ This sounds like a known scam pattern (${pattern.keywords[0]}...). Please visit the Scam Detector to analyze before sending.`;
+      }
+    }
+    // Check for family emergency patterns
+    if (/\b(mom|dad|grandma|grandpa|aunt|uncle)\b/i.test(lower) && /\b(accident|hospital|emergency|need|money|help|call)\b/i.test(lower)) {
+      return '⚠️ This sounds like a family emergency scam. Scammers often impersonate loved ones in distress. Visit Scam Detector to verify before taking action.';
+    }
+    return null;
+  };
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
@@ -80,6 +108,13 @@ const Ask = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
+  // Read scamWarning to resolve compiler warning
+  useEffect(() => {
+    if (scamWarning) {
+      console.log('Scam warning active:', scamWarning);
+    }
+  }, [scamWarning]);
+
   // Text-To-Speech (TTS) for Senior comfort
   const speakResponse = (text: string) => {
     if (isMuted) return;
@@ -121,6 +156,14 @@ const Ask = () => {
 
     setErrorText(null);
     setIsPremiumPrompt(false);
+    setScamWarning(null);
+    
+    // Check for scam patterns before sending
+    const detectedScam = checkForScam(promptText);
+    if (detectedScam) {
+      setScamWarning(detectedScam);
+      return;
+    }
     
     const userMsg: ChatMessage = {
       id: 'msg-' + Math.random().toString(36).substr(2, 9),
@@ -298,6 +341,34 @@ const Ask = () => {
         <div className="bg-red-50 border-2 border-red-200 text-red-800 rounded-2xl p-4 flex items-center gap-3 mb-3 shadow-sm">
           <AlertCircle className="text-red-600 flex-shrink-0" size={24} />
           <p className="text-lg font-bold">{errorText}</p>
+        </div>
+      )}
+
+      {scamWarning && (
+        <div className="bg-red-50 border-2 border-red-300 text-red-900 rounded-2xl p-6 mb-3 shadow-md">
+          <div className="flex items-start gap-4">
+            <div className="bg-red-100 p-2.5 rounded-xl flex-shrink-0">
+              <ShieldAlert size={32} className="text-red-600" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-extrabold text-red-900 mb-1">Scam Warning Detected</h3>
+              <p className="text-lg leading-relaxed">{scamWarning}</p>
+              <div className="flex gap-3 mt-4">
+                <Link
+                  to="/scam-detector"
+                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-bold px-6 py-3.5 rounded-2xl text-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 min-h-[48px] border-b-4 border-red-800 hover:border-red-700 active:border-b-2"
+                >
+                  <ShieldAlert size={22} /> Open Scam Detector
+                </Link>
+                <button
+                  onClick={() => setScamWarning(null)}
+                  className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-bold px-6 py-3.5 rounded-2xl text-lg border-2 border-slate-200 border-b-4 hover:border-slate-300 hover:-translate-y-0.5 active:translate-y-0.5 active:border-b-2 transition-all duration-300 min-h-[48px]"
+                >
+                  Dismiss
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
