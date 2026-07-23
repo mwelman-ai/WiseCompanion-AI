@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MessageCircle, Shield, Heart, Pill, Plane, Users, Sun, Moon, Sparkles, Contrast } from 'lucide-react';
+import { MessageCircle, Shield, Heart, Pill, Plane, Users, Sun, Moon, Sparkles, Contrast, Globe, Calendar } from 'lucide-react';
 import { toggleDarkMode, toggleHighContrast } from '../lib/utils';
 
 const cards = [
@@ -23,6 +23,16 @@ const cards = [
     border: 'border-amber-100 hover:border-amber-400',
     path: '/scam-detector',
     badge: 'Security'
+  },
+  {
+    title: 'Safe Web Explorer',
+    desc: 'Learn to identify fake websites, verify links are secure, and browse with safety.',
+    icon: Globe,
+    color: 'text-sky-600',
+    bg: 'bg-sky-50',
+    border: 'border-sky-100 hover:border-sky-400',
+    path: '/safe-web',
+    badge: 'Web Safety'
   },
   {
     title: 'Health & Wellness',
@@ -63,6 +73,16 @@ const cards = [
     border: 'border-rose-100 hover:border-rose-400',
     path: '/family',
     badge: 'Connect'
+  },
+  {
+    title: 'Community & Events',
+    desc: 'Find virtual classes, local senior clubs, and friendly peer support.',
+    icon: Calendar,
+    color: 'text-orange-600',
+    bg: 'bg-orange-50',
+    border: 'border-orange-100 hover:border-orange-400',
+    path: '/community',
+    badge: 'Community'
   },
 ];
 

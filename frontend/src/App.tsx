@@ -11,6 +11,8 @@ import Medications from './pages/Medications';
 import Travel from './pages/Travel';
 import Family from './pages/Family';
 import ScamDetector from './pages/ScamDetector';
+import SafeWeb from './pages/SafeWeb';
+import Community from './pages/Community';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Success from './pages/Success';
@@ -52,9 +54,11 @@ function App() {
               <Route path="/travel" element={<Travel />} />
               <Route path="/family" element={<Family />} />
               <Route path="/scam-detector" element={<ScamDetector />} />
+              <Route path="/safe-web" element={<SafeWeb />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
               <Route path="/success" element={<Success />} />
+              <Route path="/community" element={<Community />} />
             </Routes>
           </main>
           <Footer />

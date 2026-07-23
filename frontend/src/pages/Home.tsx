@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { Shield, MessageCircle, Apple, Pill, Plane, Users, Star, Sparkles, ArrowRight } from 'lucide-react';
+import { Shield, MessageCircle, Apple, Pill, Plane, Users, Star, Sparkles, ArrowRight, Globe, Calendar } from 'lucide-react';
 
 const features = [
   { icon: MessageCircle, title: 'Voice-First Companion', desc: 'Chat naturally using your voice. WiseCompanion listens, speaks back, and is always ready to help.', gradient: 'from-teal-500 to-cyan-600' },
   { icon: Shield, title: 'Scam Detector', desc: 'Paste suspicious emails or texts and get instant safety analysis. Green means safe, red means block it.', gradient: 'from-emerald-500 to-teal-600' },
+  { icon: Globe, title: 'Safe Web Explorer', desc: 'Browse the internet securely. Easily check if links are safe, learn to identify fake websites, and browse with complete peace of mind.', gradient: 'from-sky-500 to-blue-600' },
   { icon: Apple, title: 'Health & Wellness', desc: 'Track your steps, water, weight, and discover gentle exercises and healthy recipes.', gradient: 'from-green-500 to-emerald-600' },
   { icon: Pill, title: 'Medication Reminders', desc: 'Never miss a dose. Set friendly reminders for your pills, vitamins, and supplements.', gradient: 'from-cyan-500 to-blue-600' },
   { icon: Plane, title: 'Travel Assistant', desc: 'Smart packing lists, airport tips, and travel advice tailored for stress-free trips.', gradient: 'from-amber-500 to-orange-600' },
   { icon: Users, title: 'Stay Connected', desc: 'Send messages to family, call loved ones, and strengthen bonds with easy tools.', gradient: 'from-rose-500 to-pink-600' },
+  { icon: Calendar, title: 'Community & Events', desc: 'Stay active and join virtual zoom classes, read senior bulletin boards, and request support from friendly local volunteers.', gradient: 'from-orange-500 to-amber-600' },
 ];
 
 const testimonials = [
@@ -25,8 +27,9 @@ const Home = () => {
   const navigate = useNavigate();
 
   const featurePaths: Record<number, string> = {
-    0: '/ask', 1: '/scam-detector', 2: '/health',
-    3: '/medications', 4: '/travel', 5: '/family'
+    0: '/ask', 1: '/scam-detector', 2: '/safe-web',
+    3: '/health', 4: '/medications', 5: '/travel',
+    6: '/family', 7: '/community'
   };
 
   return (
@@ -37,15 +40,14 @@ const Home = () => {
         <div className="relative px-6 py-20 md:py-32 text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 mb-8 border border-white/10 shadow-lg">
             <Sparkles size={20} className="text-teal-300" />
-            <span className="text-lg font-semibold text-white/90">AI-Powered Companion for Adults 50+</span>
+            <span className="text-lg font-semibold text-white/90 font-bold uppercase tracking-wide">The All-In-One Companion for Seniors</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-tight mb-6">
             Your Warm, <br />
-            <span className="text-teal-300">Wise Companion</span>
+            <span className="text-teal-300">All-In-One Companion</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Voice chat, scam protection, health tracking, and family connection —<br />
-            all designed with large text and warm colors for easy use.
+          <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-10 leading-relaxed font-semibold">
+            The complete, all-in-one companion for adults 50+. From friendly voice chat and expert scam protection to safe web browsing, local community events, health logging, medication scheduling, and family connection — all designed with large text and warm colors for easy use.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <button
