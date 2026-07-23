@@ -22,3 +22,10 @@ services:
         sync: false
       - key: ELEVENLABS_API_KEY
         sync: false
+
+  - type: cron
+    name: supabase-keepalive
+    env: node
+    schedule: "0 9 * * 1"
+    buildCommand: echo "keepalive cron"
+    startCommand: curl -s https://wisecompanion-api.onrender.com/health
