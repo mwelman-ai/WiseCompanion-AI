@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Shield, MessageCircle, Apple, Pill, Plane, Users, Star, Sparkles, ArrowRight, Globe, Calendar } from 'lucide-react';
 
 const features = [
-  { icon: MessageCircle, title: 'Voice-First Companion', desc: 'Chat naturally using your voice. WiseCompanion listens, speaks back, and is always ready to help.', gradient: 'from-teal-500 to-cyan-600' },
+  { icon: MessageCircle, title: 'Voice-First Companion', desc: 'Chat naturally using your voice. Golden Years listens, speaks back, and is always ready to help.', gradient: 'from-teal-500 to-cyan-600' },
   { icon: Shield, title: 'Scam Detector', desc: 'Paste suspicious emails or texts and get instant safety analysis. Green means safe, red means block it.', gradient: 'from-emerald-500 to-teal-600' },
   { icon: Globe, title: 'Safe Web Explorer', desc: 'Browse the internet securely. Easily check if links are safe, learn to identify fake websites, and browse with complete peace of mind.', gradient: 'from-sky-500 to-blue-600' },
   { icon: Apple, title: 'Health & Wellness', desc: 'Track your steps, water, weight, and discover gentle exercises and healthy recipes.', gradient: 'from-green-500 to-emerald-600' },
@@ -40,14 +40,14 @@ const Home = () => {
         <div className="relative px-6 py-20 md:py-32 text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 mb-8 border border-white/10 shadow-lg">
             <Sparkles size={20} className="text-teal-300" />
-            <span className="text-lg font-semibold text-white/90 font-bold uppercase tracking-wide">The All-In-One Companion for Seniors</span>
+            <span className="text-lg font-semibold text-white/90 font-bold uppercase tracking-wide">Golden Years — Your All-in-One Companion for Graceful Aging</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-tight mb-6">
             Your All-in-One Companion <br />
             <span className="text-teal-300">for Aging Gracefully</span>
           </h1>
           <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-10 leading-relaxed font-semibold">
-            AI chat, scam protection, safe browsing, health tracking, community events, and more — all designed with large text and warm, friendly colors for easy use.
+            Your All-in-One Companion for Aging Gracefully — AI chat, scam protection, safe browsing, health tracking, community events, and more, all designed with large text and warm, friendly colors for easy use.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <button
@@ -135,7 +135,7 @@ const Home = () => {
           Start Your Journey Today
         </h2>
         <p className="text-xl text-white/80 max-w-xl mx-auto mb-10">
-          Free to start. No credit card needed. Your warm wise companion is waiting.
+          Free to start. No credit card needed. Your golden years companion is waiting.
         </p>
         <button
           onClick={() => navigate('/onboarding')}

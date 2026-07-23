@@ -106,7 +106,7 @@ const Pricing = () => {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <button onClick={() => navigate('/')} className="flex items-center gap-2">
             <Heart className="w-8 h-8 text-rose-500 fill-rose-500" />
-            <span className="text-2xl font-bold tracking-tight">WiseCompanion</span>
+            <span className="text-2xl font-bold tracking-tight">Golden Years</span>
           </button>
           <div className="flex items-center gap-6">
             <button onClick={() => navigate('/')} className="text-lg font-medium hover:text-rose-500 transition-colors">Home</button>
@@ -228,7 +228,7 @@ const Pricing = () => {
       {/* Footer */}
       <footer className="border-t py-12 bg-slate-50">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-lg text-slate-500">© 2026 WiseCompanion AI. Built with love for seniors.</p>
+          <p className="text-lg text-slate-500">© 2026 Golden Years. Built with love for seniors.</p>
           <div className="flex gap-8 text-lg font-medium">
             <a href="#" className="hover:text-rose-500 transition-colors">Privacy</a>
             <a href="#" className="hover:text-rose-500 transition-colors">Terms</a>

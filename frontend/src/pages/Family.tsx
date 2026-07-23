@@ -518,7 +518,7 @@ const Family = () => {
               </div>
               
               <div>
-                <p className="text-lg font-black border-t border-slate-100 pt-3">Love, Your WiseCompanion 👵</p>
+                <p className="text-lg font-black border-t border-slate-100 pt-3">Love, Your Golden Years Companion 👵</p>
               </div>
             </div>
           </div>

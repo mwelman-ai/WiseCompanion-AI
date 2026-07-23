@@ -58,14 +58,14 @@ const Medications = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           to: phoneNumber,
-          message: `Hi! This is WiseCompanion. Just a warm, supportive reminder to take your medication: ${medName} (${dosage}) scheduled for ${time}. Stay healthy and consistent!`
+          message: `Hi! This is Golden Years. Just a warm, supportive reminder to take your medication: ${medName} (${dosage}) scheduled for ${time}. Stay healthy and consistent!`
         })
       });
 
       const data = await response.json();
       if (response.ok && data.success) {
         alert(data.mocked 
-          ? `SMS Sent (Mock Mode)! See console for details.\n\nTo: ${phoneNumber}\nMessage: "Hi! This is WiseCompanion..."` 
+          ? `SMS Sent (Mock Mode)! See console for details.\n\nTo: ${phoneNumber}\nMessage: "Hi! This is Golden Years..."` 
           : `SMS Reminder sent successfully to ${phoneNumber}!`
         );
       } else {
@@ -138,7 +138,7 @@ const Medications = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                   to: phoneNumber,
-                  message: `Hi! This is WiseCompanion. Warm, friendly reminder to take your medication: ${item.name} (${item.dosage}) scheduled for ${item.time}. Stay healthy and consistent!`
+                  message: `Hi! This is Golden Years. Warm, friendly reminder to take your medication: ${item.name} (${item.dosage}) scheduled for ${item.time}. Stay healthy and consistent!`
                 })
               }).then(res => res.json()).then(data => {
                 console.log('[Auto SMS Reminder Result]:', data);

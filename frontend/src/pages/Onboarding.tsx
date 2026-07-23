@@ -61,7 +61,7 @@ const Onboarding = () => {
       <header className="max-w-xl mx-auto w-full text-center mb-6">
         <span className="text-5xl">👵</span>
         <h1 className="text-3xl font-black tracking-tight text-slate-800 mt-2">
-          WiseCompanion Setup
+          Golden Years Setup
         </h1>
         <p className="text-lg text-slate-500 font-medium">Let's tailor your experience to make it comfortable & simple</p>
       </header>
@@ -223,7 +223,7 @@ const Onboarding = () => {
 
               {/* Voice Speed Selection */}
               <div className="space-y-4 pt-4">
-                <span className="block text-xl font-bold text-slate-800">WiseCompanion Voice Speed:</span>
+                <span className="block text-xl font-bold text-slate-800">Golden Years Voice Speed:</span>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {[
                     { id: 'slow', label: '🐢 Calm & Slow' },

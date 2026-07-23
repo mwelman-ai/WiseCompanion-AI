@@ -3,7 +3,7 @@ const Footer = () => {
     <footer className="mt-auto rounded-t-[var(--radius-xl)] border-t border-[var(--color-border)] bg-[var(--bg-card)] py-10">
       <div className="container mx-auto flex flex-col items-center justify-between gap-5 px-4 md:flex-row">
         <p className="text-[1.08rem] font-medium text-[var(--color-text)]">
-          © 2026 WiseCompanion AI. Built with love for seniors.
+          © 2026 Golden Years. Built with love for seniors.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3 text-[1.02rem] font-semibold">

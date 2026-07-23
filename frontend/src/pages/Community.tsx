@@ -51,7 +51,7 @@ const Community = () => {
     },
     {
       id: '3',
-      author: 'WiseCompanion Care',
+      author: 'Golden Years Care',
       avatar: '🛡️',
       time: '1 day ago',
       content: '🚨 SAFETY ALERT: We received reports of scammers calling seniors pretending to be from the Social Security Administration asking to verify bank account numbers. Please remember, SSA will never call you to ask for this information over the phone! Stay safe!',
@@ -173,6 +173,7 @@ const Community = () => {
           <span className="bg-teal-50 text-teal-700 font-extrabold px-4 py-2 rounded-xl border border-teal-150 text-md flex items-center gap-1.5 shadow-sm">
             <Smile size={20} className="text-teal-600" /> Community Hub
           </span>
+          <span className="gold-badge">Golden Years</span>
         </div>
       </div>
 
@@ -239,7 +240,7 @@ const Community = () => {
                     <div>
                       <h4 className="font-bold text-slate-900 text-lg flex items-center gap-2">
                         {post.author}
-                        {post.author.includes('WiseCompanion') && (
+                        {post.author.includes('Golden Years') && (
                           <span className="bg-rose-100 text-rose-800 font-black text-xs uppercase px-2 py-0.5 rounded-md flex items-center gap-0.5">
                             <ShieldAlert size={12} /> Official Alert
                           </span>
@@ -333,7 +334,7 @@ const Community = () => {
               Request a Friendly Call
             </h2>
             <p className="text-md text-slate-500 mb-4 font-bold leading-relaxed">
-              Would you like a friendly, supportive volunteer to call and chat, or walk you through how to use WiseCompanion? Let us know.
+              Would you like a friendly, supportive volunteer to call and chat, or walk you through how to use Golden Years? Let us know.
             </p>
 
             {buddySubmitted ? (
@@ -341,7 +342,7 @@ const Community = () => {
                 <Sparkles size={36} className="text-emerald-600 mx-auto mb-2" />
                 <h3 className="text-lg font-black text-emerald-900 mb-1">Request Received!</h3>
                 <p className="text-emerald-700 font-semibold leading-relaxed">
-                  A warm, helpful WiseCompanion buddy will call you at <strong className="font-bold">{buddyPhone}</strong> within 24 hours. Keep a lookout!
+                  A warm, helpful Golden Years buddy will call you at <strong className="font-bold">{buddyPhone}</strong> within 24 hours. Keep a lookout!
                 </p>
                 <button
                   onClick={() => setBuddySubmitted(false)}

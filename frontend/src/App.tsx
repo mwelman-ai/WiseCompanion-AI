@@ -21,6 +21,7 @@ import Footer from './components/layout/Footer';
 
 function App() {
   useEffect(() => {
+    document.title = 'Golden Years';
     const saved = localStorage.getItem('wisecompanion-dark-mode');
     if (saved === 'true') {
       document.body.classList.add('dark-mode');

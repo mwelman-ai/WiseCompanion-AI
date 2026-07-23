@@ -115,6 +115,7 @@ const Health = () => {
         <h1 className="text-4xl font-bold text-slate-900 flex items-center gap-3">
           <Heart size={36} className="text-rose-500" />
           Health & Wellness
+          <span className="gold-badge ml-3">Golden Years</span>
         </h1>
         <p className="text-xl text-slate-600 mt-2">
           Track your daily wellness, stay active, and feel your best.

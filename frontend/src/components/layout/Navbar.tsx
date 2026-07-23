@@ -25,10 +25,10 @@ const Navbar = ({ onToggleDarkMode }: NavbarProps) => {
         to="/"
         className="senior-touch-target group inline-flex min-h-12 items-center gap-3 rounded-xl px-2 text-[var(--color-text)] no-underline transition-all duration-300"
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-600 text-white shadow-md transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-lg">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-yellow-500 text-white shadow-md transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-lg">
           <Heart size={24} color="white" fill="white" />
         </div>
-        <span className="text-2xl font-extrabold tracking-tight">WiseCompanion</span>
+        <span className="text-2xl font-extrabold tracking-tight">Golden Years</span>
       </Link>
 
       <div className="flex items-center gap-3 md:gap-4">

@@ -97,7 +97,7 @@ const Ask = () => {
       {
         id: 'msg-welcome',
         role: 'assistant',
-        content: `Hello ${storedName}! I am WiseCompanion, your warm and friendly companion. How are you feeling today? You can type a question below, click one of the suggestions, or tap the microphone to speak to me!`,
+        content: `Hello ${storedName}! I am Golden Years, your warm and friendly companion. How are you feeling today? You can type a question below, click one of the suggestions, or tap the microphone to speak to me!`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }
     ]);
@@ -267,7 +267,7 @@ const Ask = () => {
 
         <div className="flex items-center gap-3">
           <span className="text-3xl hidden sm:inline">💬</span>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-950">Ask WiseCompanion</h1>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-950">Ask Golden Years</h1>
         </div>
 
         {/* Mute Button */}
@@ -296,7 +296,7 @@ const Ask = () => {
           >
             {/* Speaker Name */}
             <span className="text-sm font-bold text-slate-500 mb-1 px-1">
-              {msg.role === 'user' ? 'You' : 'WiseCompanion'} • {msg.timestamp}
+              {msg.role === 'user' ? 'You' : 'Golden Years'} • {msg.timestamp}
             </span>
 
             {/* Bubble */}
@@ -324,7 +324,7 @@ const Ask = () => {
 
         {isLoading && (
           <div className="flex flex-col items-start">
-            <span className="text-sm font-bold text-slate-500 mb-1">WiseCompanion is thinking...</span>
+            <span className="text-sm font-bold text-slate-500 mb-1">Golden Years is thinking...</span>
             <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex items-center gap-2">
               <span className="w-3.5 h-3.5 bg-teal-600 rounded-full animate-bounce" />
               <span className="w-3.5 h-3.5 bg-teal-600 rounded-full animate-bounce [animation-delay:0.2s]" />

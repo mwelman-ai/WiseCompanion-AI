@@ -44,7 +44,7 @@ export default function Success() {
           Welcome to Premium! 🎉
         </h1>
         <p style={{ fontSize: 19, color: '#64748b', lineHeight: 1.6, margin: '0 0 24px' }}>
-          You now have unlimited access to all WiseCompanion features — voice chat, scam detection, health tracking, and more.
+          You now have unlimited access to all Golden Years features — voice chat, scam detection, health tracking, and more.
         </p>
 
         <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 20, padding: 28, marginBottom: 24, boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}>

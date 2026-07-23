@@ -5,7 +5,7 @@ import { toggleDarkMode, toggleHighContrast } from '../lib/utils';
 
 const cards = [
   {
-    title: 'Ask WiseCompanion',
+    title: 'Ask Golden Years',
     desc: 'Talk or type to your friendly AI assistant. Get warm answers and guidance.',
     icon: MessageCircle,
     color: 'text-teal-600',
@@ -111,10 +111,10 @@ const Dashboard = () => {
       {/* Top Bar — teal brand */}
       <nav className="mb-6 flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm md:px-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-cyan-600 shadow-md">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-yellow-500 shadow-md">
             <Heart size={24} color="white" fill="white" />
           </div>
-          <span className="text-2xl font-bold text-slate-800">WiseCompanion</span>
+          <span className="text-2xl font-bold text-slate-800">Golden Years</span>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -134,8 +134,8 @@ const Dashboard = () => {
         </div>
       </nav>
 
-      {/* Greeting Banner — teal gradient */}
-      <div className="greeting-banner">
+      {/* Greeting Banner — warm gold gradient */}
+      <div className="greeting-banner gold-banner">
         <h2>Good morning! 🌤️</h2>
         <p>Here's your daily overview. How are you feeling today?</p>
       </div>
@@ -160,18 +160,18 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {/* Premium CTA — teal button */}
-      <div className="premium-overlay">
+      {/* Premium CTA — gold button */}
+      <div className="premium-overlay gold-overlay">
         <h3 className="text-2xl font-bold text-slate-800 mb-2">
-          <Sparkles size={24} className="inline text-teal-500 mr-2" />
-          Go Premium
+          <Sparkles size={24} className="inline text-amber-500 mr-2" />
+          Go Golden
         </h3>
         <p className="text-slate-500 text-lg mb-4">
           Unlock unlimited voice chat, advanced scam detection, and more.
         </p>
         <button
           onClick={() => navigate('/pricing')}
-          className="btn btn-primary btn-raised"
+          className="btn btn-secondary btn-raised"
         >
           See Plans <Sparkles size={20} />
         </button>

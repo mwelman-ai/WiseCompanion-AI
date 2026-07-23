@@ -44,7 +44,7 @@ export default function Signup() {
       <div style={{ textAlign: 'center', marginBottom: 32 }}>
         <Heart size={48} color="#0d9488" fill="#0d9488" />
         <h1 style={{ fontSize: 32, fontWeight: 800, color: '#1e293b', margin: '12px 0 4px' }}>Create Account</h1>
-        <p style={{ fontSize: 18, color: '#64748b', margin: 0 }}>Start your free WiseCompanion journey</p>
+        <p style={{ fontSize: 18, color: '#64748b', margin: 0 }}>Start your free Golden Years journey</p>
       </div>
 
       <form onSubmit={handleSubmit} style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 20, padding: 32, boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}>
