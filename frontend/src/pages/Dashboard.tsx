@@ -25,12 +25,12 @@ const cards = [
     badge: 'Security'
   },
   {
-    title: 'Safe Web Explorer',
+    title: 'Safe Web',
     desc: 'Learn to identify fake websites, verify links are secure, and browse with safety.',
     icon: Globe,
-    color: 'text-sky-600',
-    bg: 'bg-sky-50',
-    border: 'border-sky-100 hover:border-sky-400',
+    color: 'text-indigo-600',
+    bg: 'bg-indigo-50',
+    border: 'border-indigo-100 hover:border-indigo-400',
     path: '/safe-web',
     badge: 'Web Safety'
   },
@@ -75,12 +75,12 @@ const cards = [
     badge: 'Connect'
   },
   {
-    title: 'Community & Events',
+    title: 'Events & Community',
     desc: 'Find virtual classes, local senior clubs, and friendly peer support.',
     icon: Calendar,
-    color: 'text-orange-600',
-    bg: 'bg-orange-50',
-    border: 'border-orange-100 hover:border-orange-400',
+    color: 'text-emerald-600',
+    bg: 'bg-emerald-50',
+    border: 'border-emerald-100 hover:border-emerald-400',
     path: '/community',
     badge: 'Community'
   },

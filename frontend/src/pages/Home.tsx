@@ -43,11 +43,11 @@ const Home = () => {
             <span className="text-lg font-semibold text-white/90 font-bold uppercase tracking-wide">The All-In-One Companion for Seniors</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-tight mb-6">
-            Your Warm, <br />
-            <span className="text-teal-300">All-In-One Companion</span>
+            Your All-in-One Companion <br />
+            <span className="text-teal-300">for Aging Gracefully</span>
           </h1>
           <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-10 leading-relaxed font-semibold">
-            The complete, all-in-one companion for adults 50+. From friendly voice chat and expert scam protection to safe web browsing, local community events, health logging, medication scheduling, and family connection — all designed with large text and warm colors for easy use.
+            AI chat, scam protection, safe browsing, health tracking, community events, and more — all designed with large text and warm, friendly colors for easy use.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <button
