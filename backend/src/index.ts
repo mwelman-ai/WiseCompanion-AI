@@ -23,8 +23,21 @@ app.use('/api', apiRoutes);
 // Serve local static uploads (mock/fallback file storage)
 app.use('/uploads', express.static(path.resolve('public/uploads')));
 
-app.get('/health', (req: Request, res: Response) => {
-  res.status(200).json({ status: 'ok', message: 'WiseCompanion AI API is running' });
+app.get('/health', async (req: Request, res: Response) => {
+  let supabaseStatus = 'unknown';
+  try {
+    const { supabase } = await import('./config/supabase.js');
+    const { data, error } = await supabase.from('users').select('id').limit(1);
+    supabaseStatus = error ? 'error' : 'connected';
+  } catch {
+    supabaseStatus = 'unavailable';
+  }
+  res.status(200).json({
+    status: 'ok',
+    message: 'WiseCompanion AI API is running',
+    supabase: supabaseStatus,
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Start Server (only when run directly, not as Vercel serverless function)
