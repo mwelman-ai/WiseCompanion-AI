@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeniorWeb.net — Your Safe & Trusted Guide to the Internet</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+      color: #1e293b;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    nav {
+      border-bottom: 2px solid #e2e8f0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    nav .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    nav .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #d97706, #f59e0b);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(217, 119, 6, 0.25);
+    }
+    nav .logo-icon svg {
+      width: 24px;
+      height: 24px;
+      color: #ffffff;
+    }
+    nav .logo-text {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1e293b;
+      letter-spacing: -0.5px;
+    }
+    nav .links a {
+      color: #475569;
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+    nav .links a:hover {
+      color: #d97706;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .hero {
+      text-align: center;
+      padding: 72px 0 56px;
+    }
+    .hero .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      color: #b45309;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .hero h1 {
+      font-size: clamp(34px, 5.5vw, 56px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      color: #0f172a;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 20px;
+      color: #475569;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 32px;
+      padding-bottom: 88px;
+    }
+    .app-card {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 24px;
+      padding: 36px;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 400px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+    .app-card:hover {
+      border-color: #f59e0b;
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(217, 119, 6, 0.12);
+    }
+    .app-card.highlight {
+      border-color: #f59e0b;
+      background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
+    }
+    .app-card .badge {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 6px 16px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge.live {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+    .app-card .icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+    .app-card .icon svg {
+      width: 32px;
+      height: 32px;
+      color: #ffffff;
+    }
+    .icon.gold {
+      background: linear-gradient(135deg, #d97706, #f59e0b);
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+    }
+    .icon.slate {
+      background: linear-gradient(135deg, #1e293b, #475569);
+      box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2);
+    }
+    .app-card h3 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #0f172a;
+    }
+    .app-card .tagline {
+      font-size: 16px;
+      color: #d97706;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .app-card .desc {
+      font-size: 16px;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      flex-grow: 1;
+    }
+    .app-card .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 800;
+      padding: 12px 24px;
+      border-radius: 14px;
+      transition: all 0.2s;
+      text-align: center;
+      justify-content: center;
+    }
+    .cta.gold-btn {
+      background: linear-gradient(135deg, #d97706, #f59e0b);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+    }
+    .cta.gold-btn:hover {
+      background: linear-gradient(135deg, #b45309, #d97706);
+      transform: scale(1.02);
+    }
+    .cta.outline-btn {
+      border: 2px solid #1e293b;
+      color: #1e293b;
+      background: transparent;
+    }
+    .cta.outline-btn:hover {
+      background: #1e293b;
+      color: #ffffff;
+      transform: scale(1.02);
+    }
+    footer {
+      border-top: 2px solid #e2e8f0;
+      background: #1e293b;
+      padding: 48px 0;
+      text-align: center;
+      color: #94a3b8;
+    }
+    footer p {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    footer .links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+    footer .links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    footer .links a:hover {
+      color: #f59e0b;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="inner">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <span class="logo-text">SeniorWeb.net</span>
+      </a>
+      <div class="links">
+        <a href="#about">About Portal</a>
+        <a href="mailto:support@seniorweb.net">Support</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero container">
+    <div class="pill">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      Your Trusted Guide to the Digital World
+    </div>
+    <h1>Simple & Safe Tools for<br><span>Graceful Aging</span></h1>
+    <p>Discover our curated collection of senior-friendly internet portals. Designed with larger text, high visibility, simple navigation, and absolute security to make technology welcoming and stress-free.</p>
+  </section>
+
+  <section class="container apps-grid" id="about">
+    <!-- Golden Years -->
+    <a href="https://wise-companion-ai-oadk.vercel.app" target="_blank" rel="noopener" class="app-card highlight">
+      <span class="badge live">Live Now</span>
+      <div>
+        <div class="icon gold">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <h3>Golden Years</h3>
+        <p class="tagline">"Your All-in-One Companion for Graceful Aging"</p>
+        <p class="desc">A warm, unified assistant offering friendly AI companionship, continuous scam prevention alerts, automated medication schedule reminders, custom itinerary travel planners, family greeting cards, and localized community events.</p>
+      </div>
+      <div class="cta gold-btn">
+        Open Golden Years App →
+      </div>
+    </a>
+
+    <!-- SeniorWeb -->
+    <a href="https://seniorweb.net" target="_blank" rel="noopener" class="app-card">
+      <span class="badge live">Live Now</span>
+      <div>
+        <div class="icon slate">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
+        <h3>SeniorWeb</h3>
+        <p class="tagline">"Your trusted guide to the internet"</p>
+        <p class="desc">A simplified, curated browsing directory and safe search engine created strictly for older adults to explore online resources, learn new hobbies, read trustworthy news, and navigate the web with confidence.</p>
+      </div>
+      <div class="cta outline-btn">
+        Visit SeniorWeb Portal →
+      </div>
+    </a>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="mailto:support@seniorweb.net">Get Assistance</a>
+      </div>
+      <p>© 2026 SeniorWeb.net. Built with love and care for the golden generation.</p>
+    </div>
+  </footer>
+</body>
+</html>
