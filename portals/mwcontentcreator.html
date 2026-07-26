@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MW Content Creator — AI Tools for Creators</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f1a;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+    nav {
+      border-bottom: 1px solid #1e1e3a;
+      background: rgba(15,15,26,0.9);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    nav .inner {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    nav .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    nav .logo span { font-size: 20px; font-weight: 700; }
+    nav .links a {
+      color: #94a3b8;
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    nav .links a:hover { color: #a855f7; }
+    .container { max-width: 1152px; margin: 0 auto; padding: 0 24px; }
+    .hero { text-align: center; padding: 80px 0 64px; }
+    .hero .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,58,237,0.15);
+      color: #c084fc;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .hero h1 { font-size: clamp(36px, 6vw, 60px); font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
+    .hero h1 span { background: linear-gradient(135deg, #7c3aed, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 18px; color: #94a3b8; max-width: 640px; margin: 0 auto; line-height: 1.6; }
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+      padding-bottom: 96px;
+    }
+    .app-card {
+      background: #1a1a2e;
+      border: 1px solid #2d2d50;
+      border-radius: 16px;
+      padding: 28px;
+      position: relative;
+      transition: all 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .app-card:hover { border-color: #7c3aed; box-shadow: 0 0 24px rgba(124,58,237,0.2); transform: translateY(-2px); }
+    .app-card .badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 999px;
+    }
+    .badge.live { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .badge.soon { background: rgba(100,116,139,0.15); color: #94a3b8; }
+    .app-card .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+    .icon.purple { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+    .icon.red { background: linear-gradient(135deg, #ef4444, #f97316); }
+    .icon.blue { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+    .app-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .app-card .tagline { font-size: 14px; color: #94a3b8; font-weight: 500; margin-bottom: 12px; }
+    .app-card .desc { font-size: 14px; color: #64748b; line-height: 1.6; margin-bottom: 20px; }
+    .app-card .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #a855f7;
+    }
+    .cta.muted { color: #475569; }
+    footer {
+      border-top: 1px solid #1e1e3a;
+      padding: 32px 0;
+      text-align: center;
+      font-size: 14px;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="inner">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        <span>MW Content Creator</span>
+      </div>
+      <div class="links">
+        <a href="#">Tools</a>
+        <a href="#">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero container">
+    <div class="pill">
+      ⚡ AI-Powered Creator Tools
+    </div>
+    <h1>Create Content<br><span>That Stands Out</span></h1>
+    <p>AI tools built for content creators. Generate ideas, scripts, hooks, and more — so you can focus on creating, not brainstorming.</p>
+  </section>
+
+  <section class="container apps-grid">
+    <!-- SparkStream -->
+    <a href="https://spark-stream-zaw9.vercel.app" target="_blank" rel="noopener" class="app-card">
+      <span class="badge live">Live Now</span>
+      <div class="icon purple">⚡</div>
+      <h3>SparkStream</h3>
+      <p class="tagline">AI-Powered Content Ideation</p>
+      <p class="desc">Overcome content block with niche-specific ideas, hooks, and full scripts. YouTube, TikTok, Instagram — all in one place.</p>
+      <span class="cta">Open App →</span>
+    </a>
+
+    <!-- Viral Fact Videos -->
+    <a href="https://viral-fact-videos--mwelman.replit.app" target="_blank" rel="noopener" class="app-card">
+      <span class="badge live">Live Now</span>
+      <div class="icon red">🎬</div>
+      <h3>Viral Fact Videos</h3>
+      <p class="tagline">Fast, fact-packed video shorts</p>
+      <p class="desc">Generate viral-worthy fact videos in seconds. Perfect for TikTok, Instagram Reels, and YouTube Shorts.</p>
+      <span class="cta">Open App →</span>
+    </a>
+
+    <!-- ScriptForge -->
+    <div class="app-card">
+      <span class="badge soon">Coming Soon</span>
+      <div class="icon blue">📝</div>
+      <h3>ScriptForge</h3>
+      <p class="tagline">Full video scripts in seconds</p>
+      <p class="desc">Generate complete video scripts with intros, hooks, body, and CTAs. Optimized for retention and engagement.</p>
+      <span class="cta muted">Coming Soon</span>
+    </div>
+
+    <!-- Analytics -->
+    <div class="app-card">
+      <span class="badge soon">Coming Soon</span>
+      <div class="icon blue">📊</div>
+      <h3>TrendRadar</h3>
+      <p class="tagline">Never miss a trending topic</p>
+      <p class="desc">Real-time trend alerts for your niche. AI analyzes what's working and suggests content angles before anyone else.</p>
+      <span class="cta muted">Coming Soon</span>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 MW Content Creator. Built for creators, by creators.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Golden Years — Tools for Graceful Aging</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+      color: #1e293b;
+      min-height: 100vh;
+    }
+    nav {
+      border-bottom: 1px solid #e2e8f0;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    nav .inner {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    nav .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #0d9488, #06b6d4);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(13,148,136,0.3);
+    }
+    nav .logo span { font-size: 22px; font-weight: 700; color: #1e293b; }
+    nav .links a {
+      color: #64748b;
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    nav .links a:hover { color: #0d9488; }
+    .container { max-width: 1152px; margin: 0 auto; padding: 0 24px; }
+    .hero { text-align: center; padding: 80px 0 64px; }
+    .hero .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f0fdfa;
+      color: #0f766e;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .hero h1 { font-size: clamp(36px, 6vw, 60px); font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
+    .hero h1 span { background: linear-gradient(135deg, #0d9488, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 18px; color: #64748b; max-width: 640px; margin: 0 auto; line-height: 1.6; }
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      padding-bottom: 96px;
+    }
+    .app-card {
+      background: #fff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px;
+      position: relative;
+      transition: all 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .app-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .app-card.live { border-color: #0d9488; }
+    .app-card.coming { opacity: 0.7; cursor: default; }
+    .app-card .badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 999px;
+    }
+    .badge.live { background: #dcfce7; color: #15803d; }
+    .badge.soon { background: #f1f5f9; color: #64748b; }
+    .app-card .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .app-card .icon svg { width: 28px; height: 28px; color: #fff; }
+    .icon.teal { background: linear-gradient(135deg, #0d9488, #06b6d4); }
+    .icon.amber { background: linear-gradient(135deg, #f59e0b, #ea580c); }
+    .icon.rose { background: linear-gradient(135deg, #f43f5e, #ec4899); }
+    .icon.gold { background: linear-gradient(135deg, #d97706, #f59e0b); }
+    .app-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: #1e293b; }
+    .app-card .tagline { font-size: 14px; color: #64748b; font-weight: 500; margin-bottom: 12px; }
+    .app-card .desc { font-size: 14px; color: #94a3b8; line-height: 1.6; margin-bottom: 20px; }
+    .app-card .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .cta.teal { color: #0d9488; }
+    .cta.gold { color: #d97706; }
+    .cta.muted { color: #94a3b8; }
+    footer {
+      border-top: 1px solid #e2e8f0;
+      padding: 32px 0;
+      text-align: center;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        </div>
+        <span>Golden Years</span>
+      </div>
+      <div class="links">
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero container">
+    <div class="pill">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"/></svg>
+      Tools for graceful aging
+    </div>
+    <h1>Your Digital<br><span>Companions</span></h1>
+    <p>A growing family of apps designed for adults 50+. Big buttons, warm colors, and simple tools that make technology feel like a friend.</p>
+  </section>
+
+  <section class="container apps-grid">
+    <!-- Golden Years — rebranded -->
+    <a href="https://wise-companion-ai-oadk.vercel.app" target="_blank" rel="noopener" class="app-card live">
+      <span class="badge live">Live Now</span>
+      <div class="icon gold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </div>
+      <h3>Golden Years</h3>
+      <p class="tagline">Your all-in-one companion for graceful aging</p>
+      <p class="desc">AI chat, scam protection, safe browsing, health tracking, community events, and family connection — all in one warm, easy-to-use app.</p>
+      <span class="cta gold">Open App →</span>
+    </a>
+
+    <!-- SeniorWeb -->
+    <a href="https://seniorweb.net" target="_blank" rel="noopener" class="app-card live">
+      <span class="badge live">Live Now</span>
+      <div class="icon amber">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>SeniorWeb</h3>
+      <p class="tagline">Your trusted guide to the internet</p>
+      <p class="desc">Simplified browsing, safe search, and curated content for older adults exploring the digital world.</p>
+      <span class="cta teal">Open App →</span>
+    </a>
+
+    <!-- Golden Years App -->
+    <div class="app-card coming">
+      <span class="badge soon">Coming Soon</span>
+      <div class="icon rose">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+      </div>
+      <h3>Golden Years Wellness</h3>
+      <p class="tagline">Wellness & community for aging gracefully</p>
+      <p class="desc">Fitness routines, social groups, event calendars, and wellness tracking tailored to your golden years.</p>
+      <span class="cta muted">Coming Soon</span>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Golden Years. Built with care for the golden generation.</p>
+    </div>
+  </footer>
+</body>
+</html>
